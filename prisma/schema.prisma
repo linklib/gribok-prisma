@@ -7,6 +7,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+
 model User {
   id             String          @id @default(cuid()) @db.VarChar(32)
   username       String?         @unique
@@ -24,6 +25,7 @@ model User {
   Files          File[]
   Letters        Letter[]
   ResetPasswords ResetPassword[]
+  Posts          Post[]
 }
 
 model Token {
@@ -110,4 +112,24 @@ model ResetPassword {
   User_ResetPasswordToUser User      @relation(fields: [User], references: [id])
 
   @@index([User], name: "User")
+}
+
+model Post {
+  id          String    @id @default(cuid()) @db.VarChar(32)
+  createdAt   DateTime  @default(now("0")) @db.DateTime(0)
+  updatedAt   DateTime  @default(now("0")) @updatedAt @db.DateTime(0)
+  mashroom    Mashroom? @relation(fields: [mashroomId], references: [id])
+  mashroomId  String?   @db.VarChar(32)
+  title       String
+  text        String?
+  createdById String?   @db.VarChar(32)
+  CreatedBy   User?     @relation(fields: [createdById], references: [id])
+
+  @@index([createdById], name: "User")
+}
+
+model Mashroom {
+  id          String    @id @default(cuid()) @db.VarChar(32)
+  mashname    String
+  posts       Post[]
 }

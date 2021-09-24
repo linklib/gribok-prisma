@@ -22,12 +22,8 @@ export const MainMenu: React.FC = () => {
   return (
     <MainMenuStyled>
       <Link href="/">MainPage</Link>
-      <Link href="/lessons">Lessons</Link>
-      <Link href="/lessons/lesson1">
-        <a title="Создание страниц">Lesson1</a>
-      </Link>
-      <Link href="/lessons/lesson2">Lesson2</Link>
-      <Link href="/lessons/lesson3">Lesson3</Link>
+      <Link href="/users">Users</Link>
+
       <div className="separator" />
 
       {context?.hello || ''}

@@ -19,13 +19,15 @@ interface PrismaModels {
   Letter: Prisma.Letter
   Log: Prisma.Log
   ResetPassword: Prisma.ResetPassword
+  Post: Prisma.Post
+  Mashroom: Prisma.Mashroom
 }
 
 // Prisma input types metadata
 interface NexusPrismaInputs {
   Query: {
     users: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'username' | 'email' | 'fullname' | 'password' | 'active' | 'sudo' | 'createdAt' | 'updatedAt' | 'showEmail' | 'showFullname' | 'image' | 'Tokens' | 'Files' | 'Letters' | 'ResetPasswords'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'username' | 'email' | 'fullname' | 'password' | 'active' | 'sudo' | 'createdAt' | 'updatedAt' | 'showEmail' | 'showFullname' | 'image' | 'Tokens' | 'Files' | 'Letters' | 'ResetPasswords' | 'Posts'
       ordering: 'id' | 'username' | 'email' | 'fullname' | 'password' | 'active' | 'sudo' | 'createdAt' | 'updatedAt' | 'showEmail' | 'showFullname' | 'image'
     }
     tokens: {
@@ -48,6 +50,14 @@ interface NexusPrismaInputs {
       filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'createdAt' | 'updatedAt' | 'code' | 'password' | 'validTill' | 'User' | 'User_ResetPasswordToUser'
       ordering: 'id' | 'createdAt' | 'updatedAt' | 'code' | 'password' | 'validTill' | 'User'
     }
+    posts: {
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'createdAt' | 'updatedAt' | 'mashroom' | 'mashroomId' | 'title' | 'text' | 'createdById' | 'CreatedBy'
+      ordering: 'id' | 'createdAt' | 'updatedAt' | 'mashroomId' | 'title' | 'text' | 'createdById'
+    }
+    mashrooms: {
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'mashname' | 'posts'
+      ordering: 'id' | 'mashname'
+    }
   },
   User: {
     Tokens: {
@@ -66,6 +76,10 @@ interface NexusPrismaInputs {
       filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'createdAt' | 'updatedAt' | 'code' | 'password' | 'validTill' | 'User' | 'User_ResetPasswordToUser'
       ordering: 'id' | 'createdAt' | 'updatedAt' | 'code' | 'password' | 'validTill' | 'User'
     }
+    Posts: {
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'createdAt' | 'updatedAt' | 'mashroom' | 'mashroomId' | 'title' | 'text' | 'createdById' | 'CreatedBy'
+      ordering: 'id' | 'createdAt' | 'updatedAt' | 'mashroomId' | 'title' | 'text' | 'createdById'
+    }
   }
   Token: {
 
@@ -81,6 +95,15 @@ interface NexusPrismaInputs {
   }
   ResetPassword: {
 
+  }
+  Post: {
+
+  }
+  Mashroom: {
+    posts: {
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'createdAt' | 'updatedAt' | 'mashroom' | 'mashroomId' | 'title' | 'text' | 'createdById' | 'CreatedBy'
+      ordering: 'id' | 'createdAt' | 'updatedAt' | 'mashroomId' | 'title' | 'text' | 'createdById'
+    }
   }
 }
 
@@ -99,6 +122,10 @@ interface NexusPrismaOutputs {
     logs: 'Log'
     resetPassword: 'ResetPassword'
     resetPasswords: 'ResetPassword'
+    post: 'Post'
+    posts: 'Post'
+    mashroom: 'Mashroom'
+    mashrooms: 'Mashroom'
   },
   Mutation: {
     createOneUser: 'User'
@@ -137,6 +164,18 @@ interface NexusPrismaOutputs {
     deleteOneResetPassword: 'ResetPassword'
     deleteManyResetPassword: 'AffectedRowsOutput'
     upsertOneResetPassword: 'ResetPassword'
+    createOnePost: 'Post'
+    updateOnePost: 'Post'
+    updateManyPost: 'AffectedRowsOutput'
+    deleteOnePost: 'Post'
+    deleteManyPost: 'AffectedRowsOutput'
+    upsertOnePost: 'Post'
+    createOneMashroom: 'Mashroom'
+    updateOneMashroom: 'Mashroom'
+    updateManyMashroom: 'AffectedRowsOutput'
+    deleteOneMashroom: 'Mashroom'
+    deleteManyMashroom: 'AffectedRowsOutput'
+    upsertOneMashroom: 'Mashroom'
   },
   User: {
     id: 'String'
@@ -155,6 +194,7 @@ interface NexusPrismaOutputs {
     Files: 'File'
     Letters: 'Letter'
     ResetPasswords: 'ResetPassword'
+    Posts: 'Post'
   }
   Token: {
     id: 'String'
@@ -212,6 +252,22 @@ interface NexusPrismaOutputs {
     User: 'String'
     User_ResetPasswordToUser: 'User'
   }
+  Post: {
+    id: 'String'
+    createdAt: 'DateTime'
+    updatedAt: 'DateTime'
+    mashroom: 'Mashroom'
+    mashroomId: 'String'
+    title: 'String'
+    text: 'String'
+    createdById: 'String'
+    CreatedBy: 'User'
+  }
+  Mashroom: {
+    id: 'String'
+    mashname: 'String'
+    posts: 'Post'
+  }
 }
 
 // Helper to gather all methods relative to a model
@@ -222,6 +278,8 @@ interface NexusPrismaMethods {
   Letter: Typegen.NexusPrismaFields<'Letter'>
   Log: Typegen.NexusPrismaFields<'Log'>
   ResetPassword: Typegen.NexusPrismaFields<'ResetPassword'>
+  Post: Typegen.NexusPrismaFields<'Post'>
+  Mashroom: Typegen.NexusPrismaFields<'Mashroom'>
   Query: Typegen.NexusPrismaFields<'Query'>
   Mutation: Typegen.NexusPrismaFields<'Mutation'>
 }

@@ -212,6 +212,24 @@ input LetterWhereInput {
   updatedAt: DateTimeFilter
 }
 
+"""
+Грибы
+"""
+type Mashroom {
+  id: String!
+  mashname: String
+  posts: [Post]
+}
+
+input MashroomWhereInput {
+  AND: [MashroomWhereInput!]
+  NOT: [MashroomWhereInput!]
+  OR: [MashroomWhereInput!]
+  id: StringFilter
+  mashname: StringFilter
+  posts: PostListRelationFilter
+}
+
 type Mutation {
   createResetPasswordProcessor(
     where: UserWhereUniqueInput!
@@ -334,6 +352,45 @@ input NestedStringNullableFilter {
   not: NestedStringNullableFilter
   notIn: [String!]
   startsWith: String
+}
+
+"""
+Пост
+"""
+type Post {
+  """
+  Когда создан
+  """
+  createdAt: DateTime!
+  id: String!
+  text: String
+  title: String
+
+  """
+  Когда обновлен
+  """
+  updatedAt: DateTime!
+}
+
+input PostListRelationFilter {
+  every: PostWhereInput
+  none: PostWhereInput
+  some: PostWhereInput
+}
+
+input PostWhereInput {
+  AND: [PostWhereInput!]
+  CreatedBy: UserWhereInput
+  NOT: [PostWhereInput!]
+  OR: [PostWhereInput!]
+  createdAt: DateTimeFilter
+  createdById: StringNullableFilter
+  id: StringFilter
+  mashroom: MashroomWhereInput
+  mashroomId: StringNullableFilter
+  text: StringNullableFilter
+  title: StringFilter
+  updatedAt: DateTimeFilter
 }
 
 type Query {
@@ -603,6 +660,7 @@ input UserWhereInput {
   Letters: LetterListRelationFilter
   NOT: [UserWhereInput!]
   OR: [UserWhereInput!]
+  Posts: PostListRelationFilter
   ResetPasswords: ResetPasswordListRelationFilter
   Tokens: TokenListRelationFilter
   active: BoolFilter
