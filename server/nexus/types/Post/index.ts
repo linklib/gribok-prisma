@@ -17,7 +17,7 @@ export const Post = objectType({
     t.nonNull.date('updatedAt', {
       description: 'Когда обновлен',
     })
-    t.string('title')
+    t.nonNull.string('title')
     t.string('text')
   },
 })
@@ -28,7 +28,7 @@ export const Mashroom = objectType({
   definition(t) {
     t.nonNull.string('id')
     t.string('mashname')
-    t.list.field('posts', {
+    t.list.nonNull.field('posts', {
       type: Post,
       resolve(_root, _args, ctx) {
         return ctx.prisma.post.findMany()

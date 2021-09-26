@@ -202,6 +202,23 @@ export interface LetterWhereInput {
   updatedAt?: Maybe<DateTimeFilter>;
 }
 
+/** Грибы */
+export interface Mashroom {
+  __typename?: 'Mashroom';
+  id: Scalars['String'];
+  mashname?: Maybe<Scalars['String']>;
+  posts?: Maybe<Array<Maybe<Post>>>;
+}
+
+export interface MashroomWhereInput {
+  AND?: Maybe<Array<MashroomWhereInput>>;
+  NOT?: Maybe<Array<MashroomWhereInput>>;
+  OR?: Maybe<Array<MashroomWhereInput>>;
+  id?: Maybe<StringFilter>;
+  mashname?: Maybe<StringFilter>;
+  posts?: Maybe<PostListRelationFilter>;
+}
+
 export interface Mutation {
   __typename?: 'Mutation';
   createResetPasswordProcessor: ResetPasswordResponse;
@@ -334,6 +351,39 @@ export interface NestedStringNullableFilter {
   not?: Maybe<NestedStringNullableFilter>;
   notIn?: Maybe<Array<Scalars['String']>>;
   startsWith?: Maybe<Scalars['String']>;
+}
+
+/** Пост */
+export interface Post {
+  __typename?: 'Post';
+  /** Когда создан */
+  createdAt: Scalars['DateTime'];
+  id: Scalars['String'];
+  text?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+  /** Когда обновлен */
+  updatedAt: Scalars['DateTime'];
+}
+
+export interface PostListRelationFilter {
+  every?: Maybe<PostWhereInput>;
+  none?: Maybe<PostWhereInput>;
+  some?: Maybe<PostWhereInput>;
+}
+
+export interface PostWhereInput {
+  AND?: Maybe<Array<PostWhereInput>>;
+  CreatedBy?: Maybe<UserWhereInput>;
+  NOT?: Maybe<Array<PostWhereInput>>;
+  OR?: Maybe<Array<PostWhereInput>>;
+  createdAt?: Maybe<DateTimeFilter>;
+  createdById?: Maybe<StringNullableFilter>;
+  id?: Maybe<StringFilter>;
+  mashroom?: Maybe<MashroomWhereInput>;
+  mashroomId?: Maybe<StringNullableFilter>;
+  text?: Maybe<StringNullableFilter>;
+  title?: Maybe<StringFilter>;
+  updatedAt?: Maybe<DateTimeFilter>;
 }
 
 export interface Query {
@@ -587,6 +637,7 @@ export interface UserWhereInput {
   Letters?: Maybe<LetterListRelationFilter>;
   NOT?: Maybe<Array<UserWhereInput>>;
   OR?: Maybe<Array<UserWhereInput>>;
+  Posts?: Maybe<PostListRelationFilter>;
   ResetPasswords?: Maybe<ResetPasswordListRelationFilter>;
   Tokens?: Maybe<TokenListRelationFilter>;
   active?: Maybe<BoolFilter>;

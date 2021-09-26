@@ -20,6 +20,12 @@ export type FileFieldPolicy = {
 	size?: FieldPolicy<any> | FieldReadFunction<any>,
 	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>
 };
+export type MashroomKeySpecifier = ('id' | 'mashname' | 'posts' | MashroomKeySpecifier)[];
+export type MashroomFieldPolicy = {
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	mashname?: FieldPolicy<any> | FieldReadFunction<any>,
+	posts?: FieldPolicy<any> | FieldReadFunction<any>
+};
 export type MutationKeySpecifier = ('createResetPasswordProcessor' | 'resetPasswordProcessor' | 'signin' | 'signup' | 'singleUpload' | MutationKeySpecifier)[];
 export type MutationFieldPolicy = {
 	createResetPasswordProcessor?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -27,6 +33,14 @@ export type MutationFieldPolicy = {
 	signin?: FieldPolicy<any> | FieldReadFunction<any>,
 	signup?: FieldPolicy<any> | FieldReadFunction<any>,
 	singleUpload?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type PostKeySpecifier = ('createdAt' | 'id' | 'text' | 'title' | 'updatedAt' | PostKeySpecifier)[];
+export type PostFieldPolicy = {
+	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	text?: FieldPolicy<any> | FieldReadFunction<any>,
+	title?: FieldPolicy<any> | FieldReadFunction<any>,
+	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type QueryKeySpecifier = ('file' | 'files' | 'filesCount' | 'me' | 'tokens' | 'user' | 'users' | 'usersCount' | QueryKeySpecifier)[];
 export type QueryFieldPolicy = {
@@ -87,9 +101,17 @@ export type TypedTypePolicies = TypePolicies & {
 		keyFields?: false | FileKeySpecifier | (() => undefined | FileKeySpecifier),
 		fields?: FileFieldPolicy,
 	},
+	Mashroom?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | MashroomKeySpecifier | (() => undefined | MashroomKeySpecifier),
+		fields?: MashroomFieldPolicy,
+	},
 	Mutation?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | MutationKeySpecifier | (() => undefined | MutationKeySpecifier),
 		fields?: MutationFieldPolicy,
+	},
+	Post?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | PostKeySpecifier | (() => undefined | PostKeySpecifier),
+		fields?: PostFieldPolicy,
 	},
 	Query?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | QueryKeySpecifier | (() => undefined | QueryKeySpecifier),
