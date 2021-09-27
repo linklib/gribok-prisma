@@ -51,3 +51,18 @@ export const Mashroom = objectType({
     })
   },
 })
+
+export const MashroomQuery = extendType({
+  type: 'Query',
+  definition(t) {
+    t.crud.mashrooms({
+      description: 'Список грибов',
+      filtering: true,
+      ordering: true,
+    })
+
+    t.crud.mashroom({
+      description: 'Гриб',
+    })
+  },
+})

@@ -189,6 +189,11 @@ export interface NexusGenInputs {
     subject?: NexusGenInputs['StringFilter'] | null // StringFilter
     updatedAt?: NexusGenInputs['DateTimeFilter'] | null // DateTimeFilter
   }
+  MashroomOrderByInput: {
+    // input type
+    id?: NexusGenEnums['SortOrder'] | null // SortOrder
+    mashname?: NexusGenEnums['SortOrder'] | null // SortOrder
+  }
   MashroomWhereInput: {
     // input type
     AND?: NexusGenInputs['MashroomWhereInput'][] | null // [MashroomWhereInput!]
@@ -197,6 +202,10 @@ export interface NexusGenInputs {
     id?: NexusGenInputs['StringFilter'] | null // StringFilter
     mashname?: NexusGenInputs['StringFilter'] | null // StringFilter
     posts?: NexusGenInputs['PostListRelationFilter'] | null // PostListRelationFilter
+  }
+  MashroomWhereUniqueInput: {
+    // input type
+    id?: string | null // String
   }
   NestedBoolFilter: {
     // input type
@@ -588,6 +597,8 @@ export interface NexusGenFieldTypes {
     file: NexusGenRootTypes['File'] | null // File
     files: NexusGenRootTypes['File'][] // [File!]!
     filesCount: number // Int!
+    mashroom: NexusGenRootTypes['Mashroom'] | null // Mashroom
+    mashrooms: NexusGenRootTypes['Mashroom'][] // [Mashroom!]!
     me: NexusGenRootTypes['User'] | null // User
     post: NexusGenRootTypes['Post'] | null // Post
     posts: NexusGenRootTypes['Post'][] // [Post!]!
@@ -686,6 +697,8 @@ export interface NexusGenFieldTypeNames {
     file: 'File'
     files: 'File'
     filesCount: 'Int'
+    mashroom: 'Mashroom'
+    mashrooms: 'Mashroom'
     me: 'User'
     post: 'Post'
     posts: 'Post'
@@ -776,6 +789,18 @@ export interface NexusGenArgTypes {
     filesCount: {
       // args
       where?: NexusGenInputs['FileWhereInput'] | null // FileWhereInput
+    }
+    mashroom: {
+      // args
+      where: NexusGenInputs['MashroomWhereUniqueInput'] // MashroomWhereUniqueInput!
+    }
+    mashrooms: {
+      // args
+      cursor?: NexusGenInputs['MashroomWhereUniqueInput'] | null // MashroomWhereUniqueInput
+      orderBy?: NexusGenInputs['MashroomOrderByInput'][] | null // [MashroomOrderByInput!]
+      skip?: number | null // Int
+      take?: number | null // Int
+      where?: NexusGenInputs['MashroomWhereInput'] | null // MashroomWhereInput
     }
     post: {
       // args
