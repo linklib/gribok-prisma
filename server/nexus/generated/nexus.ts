@@ -299,6 +299,16 @@ export interface NexusGenInputs {
     none?: NexusGenInputs['PostWhereInput'] | null // PostWhereInput
     some?: NexusGenInputs['PostWhereInput'] | null // PostWhereInput
   }
+  PostOrderByInput: {
+    // input type
+    createdAt?: NexusGenEnums['SortOrder'] | null // SortOrder
+    createdById?: NexusGenEnums['SortOrder'] | null // SortOrder
+    id?: NexusGenEnums['SortOrder'] | null // SortOrder
+    mashroomId?: NexusGenEnums['SortOrder'] | null // SortOrder
+    text?: NexusGenEnums['SortOrder'] | null // SortOrder
+    title?: NexusGenEnums['SortOrder'] | null // SortOrder
+    updatedAt?: NexusGenEnums['SortOrder'] | null // SortOrder
+  }
   PostWhereInput: {
     // input type
     AND?: NexusGenInputs['PostWhereInput'][] | null // [PostWhereInput!]
@@ -306,13 +316,17 @@ export interface NexusGenInputs {
     NOT?: NexusGenInputs['PostWhereInput'][] | null // [PostWhereInput!]
     OR?: NexusGenInputs['PostWhereInput'][] | null // [PostWhereInput!]
     createdAt?: NexusGenInputs['DateTimeFilter'] | null // DateTimeFilter
-    createdById?: NexusGenInputs['StringNullableFilter'] | null // StringNullableFilter
+    createdById?: NexusGenInputs['StringFilter'] | null // StringFilter
     id?: NexusGenInputs['StringFilter'] | null // StringFilter
     mashroom?: NexusGenInputs['MashroomWhereInput'] | null // MashroomWhereInput
     mashroomId?: NexusGenInputs['StringNullableFilter'] | null // StringNullableFilter
     text?: NexusGenInputs['StringNullableFilter'] | null // StringNullableFilter
     title?: NexusGenInputs['StringFilter'] | null // StringFilter
     updatedAt?: NexusGenInputs['DateTimeFilter'] | null // DateTimeFilter
+  }
+  PostWhereUniqueInput: {
+    // input type
+    id?: string | null // String
   }
   ResetPasswordListRelationFilter: {
     // input type
@@ -551,7 +565,7 @@ export interface NexusGenFieldTypes {
     // field return type
     id: string // String!
     mashname: string | null // String
-    posts: Array<NexusGenRootTypes['Post'] | null> | null // [Post]
+    posts: NexusGenRootTypes['Post'][] | null // [Post!]
   }
   Mutation: {
     // field return type
@@ -566,7 +580,7 @@ export interface NexusGenFieldTypes {
     createdAt: NexusGenScalars['DateTime'] // DateTime!
     id: string // String!
     text: string | null // String
-    title: string | null // String
+    title: string // String!
     updatedAt: NexusGenScalars['DateTime'] // DateTime!
   }
   Query: {
@@ -575,6 +589,8 @@ export interface NexusGenFieldTypes {
     files: NexusGenRootTypes['File'][] // [File!]!
     filesCount: number // Int!
     me: NexusGenRootTypes['User'] | null // User
+    post: NexusGenRootTypes['Post'] | null // Post
+    posts: NexusGenRootTypes['Post'][] // [Post!]!
     tokens: NexusGenRootTypes['Token'][] // [Token!]!
     user: NexusGenRootTypes['User'] | null // User
     users: NexusGenRootTypes['User'][] // [User!]!
@@ -671,6 +687,8 @@ export interface NexusGenFieldTypeNames {
     files: 'File'
     filesCount: 'Int'
     me: 'User'
+    post: 'Post'
+    posts: 'Post'
     tokens: 'Token'
     user: 'User'
     users: 'User'
@@ -758,6 +776,18 @@ export interface NexusGenArgTypes {
     filesCount: {
       // args
       where?: NexusGenInputs['FileWhereInput'] | null // FileWhereInput
+    }
+    post: {
+      // args
+      where: NexusGenInputs['PostWhereUniqueInput'] // PostWhereUniqueInput!
+    }
+    posts: {
+      // args
+      cursor?: NexusGenInputs['PostWhereUniqueInput'] | null // PostWhereUniqueInput
+      orderBy?: NexusGenInputs['PostOrderByInput'][] | null // [PostOrderByInput!]
+      skip?: number | null // Int
+      take?: number | null // Int
+      where?: NexusGenInputs['PostWhereInput'] | null // PostWhereInput
     }
     tokens: {
       // args

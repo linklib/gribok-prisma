@@ -1,6 +1,6 @@
 //import { Prisma } from '@prisma/client'
 //import { objectType, enumType, extendType, inputObjectType, nonNull } from 'nexus'
-import { objectType } from 'nexus'
+import { objectType, extendType } from 'nexus'
 
 export const Post = objectType({
   name: 'Post',
@@ -19,6 +19,21 @@ export const Post = objectType({
     })
     t.nonNull.string('title')
     t.string('text')
+  },
+})
+
+export const PostQuery = extendType({
+  type: 'Query',
+  definition(t) {
+    t.crud.posts({
+      description: 'Список постов',
+      filtering: true,
+      ordering: true,
+    })
+
+    t.crud.post({
+      description: 'Пост',
+    })
   },
 })
 

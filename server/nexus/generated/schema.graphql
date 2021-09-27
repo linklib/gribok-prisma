@@ -218,7 +218,7 @@ input LetterWhereInput {
 type Mashroom {
   id: String!
   mashname: String
-  posts: [Post]
+  posts: [Post!]
 }
 
 input MashroomWhereInput {
@@ -364,7 +364,7 @@ type Post {
   createdAt: DateTime!
   id: String!
   text: String
-  title: String
+  title: String!
 
   """
   Когда обновлен
@@ -378,19 +378,33 @@ input PostListRelationFilter {
   some: PostWhereInput
 }
 
+input PostOrderByInput {
+  createdAt: SortOrder
+  createdById: SortOrder
+  id: SortOrder
+  mashroomId: SortOrder
+  text: SortOrder
+  title: SortOrder
+  updatedAt: SortOrder
+}
+
 input PostWhereInput {
   AND: [PostWhereInput!]
   CreatedBy: UserWhereInput
   NOT: [PostWhereInput!]
   OR: [PostWhereInput!]
   createdAt: DateTimeFilter
-  createdById: StringNullableFilter
+  createdById: StringFilter
   id: StringFilter
   mashroom: MashroomWhereInput
   mashroomId: StringNullableFilter
   text: StringNullableFilter
   title: StringFilter
   updatedAt: DateTimeFilter
+}
+
+input PostWhereUniqueInput {
+  id: String
 }
 
 type Query {
@@ -415,6 +429,22 @@ type Query {
   """
   filesCount(where: FileWhereInput): Int!
   me: User
+
+  """
+  Пост
+  """
+  post(where: PostWhereUniqueInput!): Post
+
+  """
+  Список постов
+  """
+  posts(
+    cursor: PostWhereUniqueInput
+    orderBy: [PostOrderByInput!]
+    skip: Int
+    take: Int
+    where: PostWhereInput
+  ): [Post!]!
   tokens(
     cursor: TokenWhereUniqueInput
     orderBy: [TokenOrderByInput!]
