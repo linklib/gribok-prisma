@@ -1,7 +1,6 @@
 //import { Prisma } from '@prisma/client'
 //import { objectType, enumType, extendType, inputObjectType, nonNull } from 'nexus'
 import { objectType, extendType } from 'nexus'
-import { Post } from '../Post'
 
 export const Mashroom = objectType({
   name: 'Mashroom',
@@ -10,7 +9,7 @@ export const Mashroom = objectType({
     t.nonNull.string('id')
     t.string('mashname')
     t.list.nonNull.field('posts', {
-      type: Post,
+      type: 'Post',
       resolve(_root, _args, ctx) {
         return ctx.prisma.post.findMany()
       },

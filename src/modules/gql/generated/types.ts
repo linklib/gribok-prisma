@@ -207,7 +207,12 @@ export interface Mashroom {
   __typename?: 'Mashroom';
   id: Scalars['String'];
   mashname?: Maybe<Scalars['String']>;
-  posts?: Maybe<Array<Maybe<Post>>>;
+  posts?: Maybe<Array<Post>>;
+}
+
+export interface MashroomOrderByInput {
+  id?: Maybe<SortOrder>;
+  mashname?: Maybe<SortOrder>;
 }
 
 export interface MashroomWhereInput {
@@ -217,6 +222,10 @@ export interface MashroomWhereInput {
   id?: Maybe<StringFilter>;
   mashname?: Maybe<StringFilter>;
   posts?: Maybe<PostListRelationFilter>;
+}
+
+export interface MashroomWhereUniqueInput {
+  id?: Maybe<Scalars['String']>;
 }
 
 export interface Mutation {
@@ -360,7 +369,7 @@ export interface Post {
   createdAt: Scalars['DateTime'];
   id: Scalars['String'];
   text?: Maybe<Scalars['String']>;
-  title?: Maybe<Scalars['String']>;
+  title: Scalars['String'];
   /** Когда обновлен */
   updatedAt: Scalars['DateTime'];
 }
@@ -369,6 +378,16 @@ export interface PostListRelationFilter {
   every?: Maybe<PostWhereInput>;
   none?: Maybe<PostWhereInput>;
   some?: Maybe<PostWhereInput>;
+}
+
+export interface PostOrderByInput {
+  createdAt?: Maybe<SortOrder>;
+  createdById?: Maybe<SortOrder>;
+  id?: Maybe<SortOrder>;
+  mashroomId?: Maybe<SortOrder>;
+  text?: Maybe<SortOrder>;
+  title?: Maybe<SortOrder>;
+  updatedAt?: Maybe<SortOrder>;
 }
 
 export interface PostWhereInput {
@@ -386,6 +405,10 @@ export interface PostWhereInput {
   updatedAt?: Maybe<DateTimeFilter>;
 }
 
+export interface PostWhereUniqueInput {
+  id?: Maybe<Scalars['String']>;
+}
+
 export interface Query {
   __typename?: 'Query';
   /** Файл */
@@ -394,7 +417,15 @@ export interface Query {
   files: Array<File>;
   /** Количество файлов */
   filesCount: Scalars['Int'];
+  /** Гриб */
+  mashroom?: Maybe<Mashroom>;
+  /** Список грибов */
+  mashrooms: Array<Mashroom>;
   me?: Maybe<User>;
+  /** Пост */
+  post?: Maybe<Post>;
+  /** Список постов */
+  posts: Array<Post>;
   tokens: Array<Token>;
   /** Пользователь */
   user?: Maybe<User>;
@@ -421,6 +452,34 @@ export type QueryFilesArgs = {
 
 export type QueryFilesCountArgs = {
   where?: Maybe<FileWhereInput>;
+};
+
+
+export type QueryMashroomArgs = {
+  where: MashroomWhereUniqueInput;
+};
+
+
+export type QueryMashroomsArgs = {
+  cursor?: Maybe<MashroomWhereUniqueInput>;
+  orderBy?: Maybe<Array<MashroomOrderByInput>>;
+  skip?: Maybe<Scalars['Int']>;
+  take?: Maybe<Scalars['Int']>;
+  where?: Maybe<MashroomWhereInput>;
+};
+
+
+export type QueryPostArgs = {
+  where: PostWhereUniqueInput;
+};
+
+
+export type QueryPostsArgs = {
+  cursor?: Maybe<PostWhereUniqueInput>;
+  orderBy?: Maybe<Array<PostOrderByInput>>;
+  skip?: Maybe<Scalars['Int']>;
+  take?: Maybe<Scalars['Int']>;
+  where?: Maybe<PostWhereInput>;
 };
 
 

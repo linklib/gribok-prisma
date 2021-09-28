@@ -212,6 +212,20 @@ input LetterWhereInput {
   updatedAt: DateTimeFilter
 }
 
+"""
+Грибы
+"""
+type Mashroom {
+  id: String!
+  mashname: String
+  posts: [Post!]
+}
+
+input MashroomOrderByInput {
+  id: SortOrder
+  mashname: SortOrder
+}
+
 input MashroomWhereInput {
   AND: [MashroomWhereInput!]
   NOT: [MashroomWhereInput!]
@@ -219,6 +233,10 @@ input MashroomWhereInput {
   id: StringFilter
   mashname: StringFilter
   posts: PostListRelationFilter
+}
+
+input MashroomWhereUniqueInput {
+  id: String
 }
 
 type Mutation {
@@ -385,7 +403,7 @@ input PostWhereInput {
   NOT: [PostWhereInput!]
   OR: [PostWhereInput!]
   createdAt: DateTimeFilter
-  createdById: StringFilter
+  createdById: StringNullableFilter
   id: StringFilter
   mashroom: MashroomWhereInput
   mashroomId: StringNullableFilter
@@ -419,6 +437,22 @@ type Query {
   Количество файлов
   """
   filesCount(where: FileWhereInput): Int!
+
+  """
+  Гриб
+  """
+  mashroom(where: MashroomWhereUniqueInput!): Mashroom
+
+  """
+  Список грибов
+  """
+  mashrooms(
+    cursor: MashroomWhereUniqueInput
+    orderBy: [MashroomOrderByInput!]
+    skip: Int
+    take: Int
+    where: MashroomWhereInput
+  ): [Mashroom!]!
   me: User
 
   """

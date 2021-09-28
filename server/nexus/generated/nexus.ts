@@ -189,6 +189,11 @@ export interface NexusGenInputs {
     subject?: NexusGenInputs['StringFilter'] | null // StringFilter
     updatedAt?: NexusGenInputs['DateTimeFilter'] | null // DateTimeFilter
   }
+  MashroomOrderByInput: {
+    // input type
+    id?: NexusGenEnums['SortOrder'] | null // SortOrder
+    mashname?: NexusGenEnums['SortOrder'] | null // SortOrder
+  }
   MashroomWhereInput: {
     // input type
     AND?: NexusGenInputs['MashroomWhereInput'][] | null // [MashroomWhereInput!]
@@ -197,6 +202,10 @@ export interface NexusGenInputs {
     id?: NexusGenInputs['StringFilter'] | null // StringFilter
     mashname?: NexusGenInputs['StringFilter'] | null // StringFilter
     posts?: NexusGenInputs['PostListRelationFilter'] | null // PostListRelationFilter
+  }
+  MashroomWhereUniqueInput: {
+    // input type
+    id?: string | null // String
   }
   NestedBoolFilter: {
     // input type
@@ -316,7 +325,7 @@ export interface NexusGenInputs {
     NOT?: NexusGenInputs['PostWhereInput'][] | null // [PostWhereInput!]
     OR?: NexusGenInputs['PostWhereInput'][] | null // [PostWhereInput!]
     createdAt?: NexusGenInputs['DateTimeFilter'] | null // DateTimeFilter
-    createdById?: NexusGenInputs['StringFilter'] | null // StringFilter
+    createdById?: NexusGenInputs['StringNullableFilter'] | null // StringNullableFilter
     id?: NexusGenInputs['StringFilter'] | null // StringFilter
     mashroom?: NexusGenInputs['MashroomWhereInput'] | null // MashroomWhereInput
     mashroomId?: NexusGenInputs['StringNullableFilter'] | null // StringNullableFilter
@@ -504,6 +513,11 @@ export interface NexusGenObjects {
     token?: string | null // String
   }
   File: File
+  Mashroom: {
+    // root type
+    id: string // String!
+    mashname?: string | null // String
+  }
   Mutation: {}
   Post: Post
   Query: {}
@@ -556,6 +570,12 @@ export interface NexusGenFieldTypes {
     size: number // Float!
     updatedAt: NexusGenScalars['DateTime'] // DateTime!
   }
+  Mashroom: {
+    // field return type
+    id: string // String!
+    mashname: string | null // String
+    posts: NexusGenRootTypes['Post'][] | null // [Post!]
+  }
   Mutation: {
     // field return type
     createResetPasswordProcessor: NexusGenRootTypes['ResetPasswordResponse'] // ResetPasswordResponse!
@@ -577,6 +597,8 @@ export interface NexusGenFieldTypes {
     file: NexusGenRootTypes['File'] | null // File
     files: NexusGenRootTypes['File'][] // [File!]!
     filesCount: number // Int!
+    mashroom: NexusGenRootTypes['Mashroom'] | null // Mashroom
+    mashrooms: NexusGenRootTypes['Mashroom'][] // [Mashroom!]!
     me: NexusGenRootTypes['User'] | null // User
     post: NexusGenRootTypes['Post'] | null // Post
     posts: NexusGenRootTypes['Post'][] // [Post!]!
@@ -648,6 +670,12 @@ export interface NexusGenFieldTypeNames {
     size: 'Float'
     updatedAt: 'DateTime'
   }
+  Mashroom: {
+    // field return type name
+    id: 'String'
+    mashname: 'String'
+    posts: 'Post'
+  }
   Mutation: {
     // field return type name
     createResetPasswordProcessor: 'ResetPasswordResponse'
@@ -669,6 +697,8 @@ export interface NexusGenFieldTypeNames {
     file: 'File'
     files: 'File'
     filesCount: 'Int'
+    mashroom: 'Mashroom'
+    mashrooms: 'Mashroom'
     me: 'User'
     post: 'Post'
     posts: 'Post'
@@ -759,6 +789,18 @@ export interface NexusGenArgTypes {
     filesCount: {
       // args
       where?: NexusGenInputs['FileWhereInput'] | null // FileWhereInput
+    }
+    mashroom: {
+      // args
+      where: NexusGenInputs['MashroomWhereUniqueInput'] // MashroomWhereUniqueInput!
+    }
+    mashrooms: {
+      // args
+      cursor?: NexusGenInputs['MashroomWhereUniqueInput'] | null // MashroomWhereUniqueInput
+      orderBy?: NexusGenInputs['MashroomOrderByInput'][] | null // [MashroomOrderByInput!]
+      skip?: number | null // Int
+      take?: number | null // Int
+      where?: NexusGenInputs['MashroomWhereInput'] | null // MashroomWhereInput
     }
     post: {
       // args
