@@ -22,7 +22,7 @@ export const Post = objectType({
   },
 })
 
-export const PostQuery = extendType({
+export const PostExtendQuery = extendType({
   type: 'Query',
   definition(t) {
     t.crud.posts({
