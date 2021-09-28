@@ -202,6 +202,23 @@ export interface LetterWhereInput {
   updatedAt?: Maybe<DateTimeFilter>;
 }
 
+export interface LikeListRelationFilter {
+  every?: Maybe<LikeWhereInput>;
+  none?: Maybe<LikeWhereInput>;
+  some?: Maybe<LikeWhereInput>;
+}
+
+export interface LikeWhereInput {
+  AND?: Maybe<Array<LikeWhereInput>>;
+  CreatedBy?: Maybe<UserWhereInput>;
+  NOT?: Maybe<Array<LikeWhereInput>>;
+  OR?: Maybe<Array<LikeWhereInput>>;
+  createdById?: Maybe<StringFilter>;
+  id?: Maybe<StringFilter>;
+  postLike?: Maybe<PostWhereInput>;
+  postLikeId?: Maybe<StringFilter>;
+}
+
 /** Грибы */
 export interface Mashroom {
   __typename?: 'Mashroom';
@@ -393,10 +410,11 @@ export interface PostOrderByInput {
 export interface PostWhereInput {
   AND?: Maybe<Array<PostWhereInput>>;
   CreatedBy?: Maybe<UserWhereInput>;
+  Likes?: Maybe<LikeListRelationFilter>;
   NOT?: Maybe<Array<PostWhereInput>>;
   OR?: Maybe<Array<PostWhereInput>>;
   createdAt?: Maybe<DateTimeFilter>;
-  createdById?: Maybe<StringNullableFilter>;
+  createdById?: Maybe<StringFilter>;
   id?: Maybe<StringFilter>;
   mashroom?: Maybe<MashroomWhereInput>;
   mashroomId?: Maybe<StringNullableFilter>;
@@ -694,6 +712,7 @@ export interface UserWhereInput {
   AND?: Maybe<Array<UserWhereInput>>;
   Files?: Maybe<FileListRelationFilter>;
   Letters?: Maybe<LetterListRelationFilter>;
+  Likes?: Maybe<LikeListRelationFilter>;
   NOT?: Maybe<Array<UserWhereInput>>;
   OR?: Maybe<Array<UserWhereInput>>;
   Posts?: Maybe<PostListRelationFilter>;

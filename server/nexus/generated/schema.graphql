@@ -213,6 +213,40 @@ input LetterWhereInput {
 }
 
 """
+Лайки поста
+"""
+type Like {
+  id: String!
+}
+
+input LikeListRelationFilter {
+  every: LikeWhereInput
+  none: LikeWhereInput
+  some: LikeWhereInput
+}
+
+input LikeOrderByInput {
+  createdById: SortOrder
+  id: SortOrder
+  postLikeId: SortOrder
+}
+
+input LikeWhereInput {
+  AND: [LikeWhereInput!]
+  CreatedBy: UserWhereInput
+  NOT: [LikeWhereInput!]
+  OR: [LikeWhereInput!]
+  createdById: StringFilter
+  id: StringFilter
+  postLike: PostWhereInput
+  postLikeId: StringFilter
+}
+
+input LikeWhereUniqueInput {
+  id: String
+}
+
+"""
 Грибы
 """
 type Mashroom {
@@ -372,6 +406,7 @@ type Post {
   """
   createdAt: DateTime!
   id: String!
+  likes: [Like!]
   text: String
   title: String!
 
@@ -400,10 +435,11 @@ input PostOrderByInput {
 input PostWhereInput {
   AND: [PostWhereInput!]
   CreatedBy: UserWhereInput
+  Likes: LikeListRelationFilter
   NOT: [PostWhereInput!]
   OR: [PostWhereInput!]
   createdAt: DateTimeFilter
-  createdById: StringNullableFilter
+  createdById: StringFilter
   id: StringFilter
   mashroom: MashroomWhereInput
   mashroomId: StringNullableFilter
@@ -437,6 +473,22 @@ type Query {
   Количество файлов
   """
   filesCount(where: FileWhereInput): Int!
+
+  """
+  Лайк
+  """
+  like(where: LikeWhereUniqueInput!): Like
+
+  """
+  Список лайков
+  """
+  likes(
+    cursor: LikeWhereUniqueInput
+    orderBy: [LikeOrderByInput!]
+    skip: Int
+    take: Int
+    where: LikeWhereInput
+  ): [Like!]!
 
   """
   Гриб
@@ -713,6 +765,7 @@ input UserWhereInput {
   AND: [UserWhereInput!]
   Files: FileListRelationFilter
   Letters: LetterListRelationFilter
+  Likes: LikeListRelationFilter
   NOT: [UserWhereInput!]
   OR: [UserWhereInput!]
   Posts: PostListRelationFilter

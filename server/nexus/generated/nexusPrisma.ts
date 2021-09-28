@@ -21,13 +21,14 @@ interface PrismaModels {
   ResetPassword: Prisma.ResetPassword
   Post: Prisma.Post
   Mashroom: Prisma.Mashroom
+  Like: Prisma.Like
 }
 
 // Prisma input types metadata
 interface NexusPrismaInputs {
   Query: {
     users: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'username' | 'email' | 'fullname' | 'password' | 'active' | 'sudo' | 'createdAt' | 'updatedAt' | 'showEmail' | 'showFullname' | 'image' | 'Tokens' | 'Files' | 'Letters' | 'ResetPasswords' | 'Posts'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'username' | 'email' | 'fullname' | 'password' | 'active' | 'sudo' | 'createdAt' | 'updatedAt' | 'showEmail' | 'showFullname' | 'image' | 'Tokens' | 'Files' | 'Letters' | 'ResetPasswords' | 'Posts' | 'Likes'
       ordering: 'id' | 'username' | 'email' | 'fullname' | 'password' | 'active' | 'sudo' | 'createdAt' | 'updatedAt' | 'showEmail' | 'showFullname' | 'image'
     }
     tokens: {
@@ -51,12 +52,16 @@ interface NexusPrismaInputs {
       ordering: 'id' | 'createdAt' | 'updatedAt' | 'code' | 'password' | 'validTill' | 'User'
     }
     posts: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'createdAt' | 'updatedAt' | 'mashroom' | 'mashroomId' | 'title' | 'text' | 'createdById' | 'CreatedBy'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'createdAt' | 'updatedAt' | 'mashroom' | 'mashroomId' | 'title' | 'text' | 'createdById' | 'CreatedBy' | 'Likes'
       ordering: 'id' | 'createdAt' | 'updatedAt' | 'mashroomId' | 'title' | 'text' | 'createdById'
     }
     mashrooms: {
       filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'mashname' | 'posts'
       ordering: 'id' | 'mashname'
+    }
+    likes: {
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'postLikeId' | 'postLike' | 'createdById' | 'CreatedBy'
+      ordering: 'id' | 'postLikeId' | 'createdById'
     }
   },
   User: {
@@ -77,8 +82,12 @@ interface NexusPrismaInputs {
       ordering: 'id' | 'createdAt' | 'updatedAt' | 'code' | 'password' | 'validTill' | 'User'
     }
     Posts: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'createdAt' | 'updatedAt' | 'mashroom' | 'mashroomId' | 'title' | 'text' | 'createdById' | 'CreatedBy'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'createdAt' | 'updatedAt' | 'mashroom' | 'mashroomId' | 'title' | 'text' | 'createdById' | 'CreatedBy' | 'Likes'
       ordering: 'id' | 'createdAt' | 'updatedAt' | 'mashroomId' | 'title' | 'text' | 'createdById'
+    }
+    Likes: {
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'postLikeId' | 'postLike' | 'createdById' | 'CreatedBy'
+      ordering: 'id' | 'postLikeId' | 'createdById'
     }
   }
   Token: {
@@ -97,13 +106,19 @@ interface NexusPrismaInputs {
 
   }
   Post: {
-
+    Likes: {
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'postLikeId' | 'postLike' | 'createdById' | 'CreatedBy'
+      ordering: 'id' | 'postLikeId' | 'createdById'
+    }
   }
   Mashroom: {
     posts: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'createdAt' | 'updatedAt' | 'mashroom' | 'mashroomId' | 'title' | 'text' | 'createdById' | 'CreatedBy'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'createdAt' | 'updatedAt' | 'mashroom' | 'mashroomId' | 'title' | 'text' | 'createdById' | 'CreatedBy' | 'Likes'
       ordering: 'id' | 'createdAt' | 'updatedAt' | 'mashroomId' | 'title' | 'text' | 'createdById'
     }
+  }
+  Like: {
+
   }
 }
 
@@ -126,6 +141,8 @@ interface NexusPrismaOutputs {
     posts: 'Post'
     mashroom: 'Mashroom'
     mashrooms: 'Mashroom'
+    like: 'Like'
+    likes: 'Like'
   },
   Mutation: {
     createOneUser: 'User'
@@ -176,6 +193,12 @@ interface NexusPrismaOutputs {
     deleteOneMashroom: 'Mashroom'
     deleteManyMashroom: 'AffectedRowsOutput'
     upsertOneMashroom: 'Mashroom'
+    createOneLike: 'Like'
+    updateOneLike: 'Like'
+    updateManyLike: 'AffectedRowsOutput'
+    deleteOneLike: 'Like'
+    deleteManyLike: 'AffectedRowsOutput'
+    upsertOneLike: 'Like'
   },
   User: {
     id: 'String'
@@ -195,6 +218,7 @@ interface NexusPrismaOutputs {
     Letters: 'Letter'
     ResetPasswords: 'ResetPassword'
     Posts: 'Post'
+    Likes: 'Like'
   }
   Token: {
     id: 'String'
@@ -262,11 +286,19 @@ interface NexusPrismaOutputs {
     text: 'String'
     createdById: 'String'
     CreatedBy: 'User'
+    Likes: 'Like'
   }
   Mashroom: {
     id: 'String'
     mashname: 'String'
     posts: 'Post'
+  }
+  Like: {
+    id: 'String'
+    postLikeId: 'String'
+    postLike: 'Post'
+    createdById: 'String'
+    CreatedBy: 'User'
   }
 }
 
@@ -280,6 +312,7 @@ interface NexusPrismaMethods {
   ResetPassword: Typegen.NexusPrismaFields<'ResetPassword'>
   Post: Typegen.NexusPrismaFields<'Post'>
   Mashroom: Typegen.NexusPrismaFields<'Mashroom'>
+  Like: Typegen.NexusPrismaFields<'Like'>
   Query: Typegen.NexusPrismaFields<'Query'>
   Mutation: Typegen.NexusPrismaFields<'Mutation'>
 }

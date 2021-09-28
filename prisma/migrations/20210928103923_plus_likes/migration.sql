@@ -1,0 +1,14 @@
+-- CreateTable
+CREATE TABLE `Like` (
+    `id` VARCHAR(32) NOT NULL,
+    `postLikeId` VARCHAR(32) NOT NULL,
+    `createdById` VARCHAR(32) NOT NULL,
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- AddForeignKey
+ALTER TABLE `Like` ADD FOREIGN KEY (`postLikeId`) REFERENCES `Post`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `Like` ADD FOREIGN KEY (`createdById`) REFERENCES `User`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;

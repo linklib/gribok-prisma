@@ -189,6 +189,33 @@ export interface NexusGenInputs {
     subject?: NexusGenInputs['StringFilter'] | null // StringFilter
     updatedAt?: NexusGenInputs['DateTimeFilter'] | null // DateTimeFilter
   }
+  LikeListRelationFilter: {
+    // input type
+    every?: NexusGenInputs['LikeWhereInput'] | null // LikeWhereInput
+    none?: NexusGenInputs['LikeWhereInput'] | null // LikeWhereInput
+    some?: NexusGenInputs['LikeWhereInput'] | null // LikeWhereInput
+  }
+  LikeOrderByInput: {
+    // input type
+    createdById?: NexusGenEnums['SortOrder'] | null // SortOrder
+    id?: NexusGenEnums['SortOrder'] | null // SortOrder
+    postLikeId?: NexusGenEnums['SortOrder'] | null // SortOrder
+  }
+  LikeWhereInput: {
+    // input type
+    AND?: NexusGenInputs['LikeWhereInput'][] | null // [LikeWhereInput!]
+    CreatedBy?: NexusGenInputs['UserWhereInput'] | null // UserWhereInput
+    NOT?: NexusGenInputs['LikeWhereInput'][] | null // [LikeWhereInput!]
+    OR?: NexusGenInputs['LikeWhereInput'][] | null // [LikeWhereInput!]
+    createdById?: NexusGenInputs['StringFilter'] | null // StringFilter
+    id?: NexusGenInputs['StringFilter'] | null // StringFilter
+    postLike?: NexusGenInputs['PostWhereInput'] | null // PostWhereInput
+    postLikeId?: NexusGenInputs['StringFilter'] | null // StringFilter
+  }
+  LikeWhereUniqueInput: {
+    // input type
+    id?: string | null // String
+  }
   MashroomOrderByInput: {
     // input type
     id?: NexusGenEnums['SortOrder'] | null // SortOrder
@@ -322,10 +349,11 @@ export interface NexusGenInputs {
     // input type
     AND?: NexusGenInputs['PostWhereInput'][] | null // [PostWhereInput!]
     CreatedBy?: NexusGenInputs['UserWhereInput'] | null // UserWhereInput
+    Likes?: NexusGenInputs['LikeListRelationFilter'] | null // LikeListRelationFilter
     NOT?: NexusGenInputs['PostWhereInput'][] | null // [PostWhereInput!]
     OR?: NexusGenInputs['PostWhereInput'][] | null // [PostWhereInput!]
     createdAt?: NexusGenInputs['DateTimeFilter'] | null // DateTimeFilter
-    createdById?: NexusGenInputs['StringNullableFilter'] | null // StringNullableFilter
+    createdById?: NexusGenInputs['StringFilter'] | null // StringFilter
     id?: NexusGenInputs['StringFilter'] | null // StringFilter
     mashroom?: NexusGenInputs['MashroomWhereInput'] | null // MashroomWhereInput
     mashroomId?: NexusGenInputs['StringNullableFilter'] | null // StringNullableFilter
@@ -461,6 +489,7 @@ export interface NexusGenInputs {
     AND?: NexusGenInputs['UserWhereInput'][] | null // [UserWhereInput!]
     Files?: NexusGenInputs['FileListRelationFilter'] | null // FileListRelationFilter
     Letters?: NexusGenInputs['LetterListRelationFilter'] | null // LetterListRelationFilter
+    Likes?: NexusGenInputs['LikeListRelationFilter'] | null // LikeListRelationFilter
     NOT?: NexusGenInputs['UserWhereInput'][] | null // [UserWhereInput!]
     OR?: NexusGenInputs['UserWhereInput'][] | null // [UserWhereInput!]
     Posts?: NexusGenInputs['PostListRelationFilter'] | null // PostListRelationFilter
@@ -513,6 +542,10 @@ export interface NexusGenObjects {
     token?: string | null // String
   }
   File: File
+  Like: {
+    // root type
+    id: string // String!
+  }
   Mashroom: {
     // root type
     id: string // String!
@@ -570,6 +603,10 @@ export interface NexusGenFieldTypes {
     size: number // Float!
     updatedAt: NexusGenScalars['DateTime'] // DateTime!
   }
+  Like: {
+    // field return type
+    id: string // String!
+  }
   Mashroom: {
     // field return type
     id: string // String!
@@ -588,6 +625,7 @@ export interface NexusGenFieldTypes {
     // field return type
     createdAt: NexusGenScalars['DateTime'] // DateTime!
     id: string // String!
+    likes: NexusGenRootTypes['Like'][] | null // [Like!]
     text: string | null // String
     title: string // String!
     updatedAt: NexusGenScalars['DateTime'] // DateTime!
@@ -597,6 +635,8 @@ export interface NexusGenFieldTypes {
     file: NexusGenRootTypes['File'] | null // File
     files: NexusGenRootTypes['File'][] // [File!]!
     filesCount: number // Int!
+    like: NexusGenRootTypes['Like'] | null // Like
+    likes: NexusGenRootTypes['Like'][] // [Like!]!
     mashroom: NexusGenRootTypes['Mashroom'] | null // Mashroom
     mashrooms: NexusGenRootTypes['Mashroom'][] // [Mashroom!]!
     me: NexusGenRootTypes['User'] | null // User
@@ -670,6 +710,10 @@ export interface NexusGenFieldTypeNames {
     size: 'Float'
     updatedAt: 'DateTime'
   }
+  Like: {
+    // field return type name
+    id: 'String'
+  }
   Mashroom: {
     // field return type name
     id: 'String'
@@ -688,6 +732,7 @@ export interface NexusGenFieldTypeNames {
     // field return type name
     createdAt: 'DateTime'
     id: 'String'
+    likes: 'Like'
     text: 'String'
     title: 'String'
     updatedAt: 'DateTime'
@@ -697,6 +742,8 @@ export interface NexusGenFieldTypeNames {
     file: 'File'
     files: 'File'
     filesCount: 'Int'
+    like: 'Like'
+    likes: 'Like'
     mashroom: 'Mashroom'
     mashrooms: 'Mashroom'
     me: 'User'
@@ -789,6 +836,18 @@ export interface NexusGenArgTypes {
     filesCount: {
       // args
       where?: NexusGenInputs['FileWhereInput'] | null // FileWhereInput
+    }
+    like: {
+      // args
+      where: NexusGenInputs['LikeWhereUniqueInput'] // LikeWhereUniqueInput!
+    }
+    likes: {
+      // args
+      cursor?: NexusGenInputs['LikeWhereUniqueInput'] | null // LikeWhereUniqueInput
+      orderBy?: NexusGenInputs['LikeOrderByInput'][] | null // [LikeOrderByInput!]
+      skip?: number | null // Int
+      take?: number | null // Int
+      where?: NexusGenInputs['LikeWhereInput'] | null // LikeWhereInput
     }
     mashroom: {
       // args

@@ -7,7 +7,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model User {
   id             String          @id @default(cuid()) @db.VarChar(32)
   username       String?         @unique
@@ -26,6 +25,7 @@ model User {
   Letters        Letter[]
   ResetPasswords ResetPassword[]
   Posts          Post[]
+  Likes          Like[]
 }
 
 model Token {
@@ -122,14 +122,23 @@ model Post {
   mashroomId  String?   @db.VarChar(32)
   title       String
   text        String?
-  createdById String   @db.VarChar(32)
-  CreatedBy   User     @relation(fields: [createdById], references: [id])
+  createdById String    @db.VarChar(32)
+  CreatedBy   User      @relation(fields: [createdById], references: [id])
+  Likes       Like[]
 
   @@index([createdById], name: "User")
 }
 
 model Mashroom {
-  id          String    @id @default(cuid()) @db.VarChar(32)
-  mashname    String
-  posts       Post[]
+  id       String @id @default(cuid()) @db.VarChar(32)
+  mashname String
+  posts    Post[]
+}
+
+model Like {
+  id          String @id @default(cuid()) @db.VarChar(32)
+  postLikeId  String @db.VarChar(32)
+  postLike    Post   @relation(fields: [postLikeId], references: [id])
+  createdById String @db.VarChar(32)
+  CreatedBy   User   @relation(fields: [createdById], references: [id])
 }

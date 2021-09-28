@@ -19,6 +19,13 @@ export const Post = objectType({
     })
     t.nonNull.string('title')
     t.string('text')
+
+    t.list.nonNull.field('likes', {
+      type: 'Like',
+      resolve(_root, _args, ctx) {
+        return ctx.prisma.like.findMany()
+      },
+    })
   },
 })
 
