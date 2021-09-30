@@ -1,6 +1,7 @@
 //import { Prisma } from '@prisma/client'
 //import { objectType, enumType, extendType, inputObjectType, nonNull } from 'nexus'
-import { objectType, extendType } from 'nexus'
+import { objectType, extendType, inputObjectType, nonNull } from 'nexus'
+import { createpost } from './resolvers/createpost'
 
 export const Post = objectType({
   name: 'Post',
@@ -40,6 +41,31 @@ export const PostExtendQuery = extendType({
 
     t.crud.post({
       description: 'Пост',
+    })
+  },
+})
+
+export const PostCreateInput = inputObjectType({
+  name: 'PostCreateInput',
+  definition(t) {
+    t.nonNull.string('title')
+    t.string('text')
+  },
+})
+
+export const PostExtendMutation = extendType({
+  type: 'Mutation',
+  definition(t) {
+    t.nonNull.field('createPost', {
+      type: 'Post',
+      args: {
+        where: nonNull('PostCreateInput'),
+      },
+      resolve: createpost,
+      /*
+      resolve(_root, _args, ctx) {
+        return ctx.prisma.post.create(_args)
+      },*/
     })
   },
 })

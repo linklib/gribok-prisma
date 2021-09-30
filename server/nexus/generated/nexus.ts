@@ -329,6 +329,11 @@ export interface NexusGenInputs {
     notIn?: string[] | null // [String!]
     startsWith?: string | null // String
   }
+  PostCreateInput: {
+    // input type
+    text?: string | null // String
+    title: string // String!
+  }
   PostListRelationFilter: {
     // input type
     every?: NexusGenInputs['PostWhereInput'] | null // PostWhereInput
@@ -615,6 +620,7 @@ export interface NexusGenFieldTypes {
   }
   Mutation: {
     // field return type
+    createPost: NexusGenRootTypes['Post'] // Post!
     createResetPasswordProcessor: NexusGenRootTypes['ResetPasswordResponse'] // ResetPasswordResponse!
     resetPasswordProcessor: NexusGenRootTypes['AuthPayload'] // AuthPayload!
     signin: NexusGenRootTypes['AuthPayload'] // AuthPayload!
@@ -722,6 +728,7 @@ export interface NexusGenFieldTypeNames {
   }
   Mutation: {
     // field return type name
+    createPost: 'Post'
     createResetPasswordProcessor: 'ResetPasswordResponse'
     resetPasswordProcessor: 'AuthPayload'
     signin: 'AuthPayload'
@@ -797,6 +804,10 @@ export interface NexusGenFieldTypeNames {
 
 export interface NexusGenArgTypes {
   Mutation: {
+    createPost: {
+      // args
+      where: NexusGenInputs['PostCreateInput'] // PostCreateInput!
+    }
     createResetPasswordProcessor: {
       // args
       where: NexusGenInputs['UserWhereUniqueInput'] // UserWhereUniqueInput!

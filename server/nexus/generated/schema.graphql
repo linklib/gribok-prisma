@@ -274,6 +274,7 @@ input MashroomWhereUniqueInput {
 }
 
 type Mutation {
+  createPost(where: PostCreateInput!): Post!
   createResetPasswordProcessor(
     where: UserWhereUniqueInput!
   ): ResetPasswordResponse!
@@ -414,6 +415,11 @@ type Post {
   Когда обновлен
   """
   updatedAt: DateTime!
+}
+
+input PostCreateInput {
+  text: String
+  title: String!
 }
 
 input PostListRelationFilter {
