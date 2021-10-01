@@ -806,7 +806,7 @@ export interface NexusGenArgTypes {
   Mutation: {
     createPost: {
       // args
-      where: NexusGenInputs['PostCreateInput'] // PostCreateInput!
+      data: NexusGenInputs['PostCreateInput'] // PostCreateInput!
     }
     createResetPasswordProcessor: {
       // args

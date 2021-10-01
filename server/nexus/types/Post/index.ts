@@ -59,13 +59,9 @@ export const PostExtendMutation = extendType({
     t.nonNull.field('createPost', {
       type: 'Post',
       args: {
-        where: nonNull('PostCreateInput'),
+        data: nonNull('PostCreateInput'),
       },
       resolve: createpost,
-      /*
-      resolve(_root, _args, ctx) {
-        return ctx.prisma.post.create(_args)
-      },*/
     })
   },
 })

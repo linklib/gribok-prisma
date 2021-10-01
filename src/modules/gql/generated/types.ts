@@ -202,10 +202,22 @@ export interface LetterWhereInput {
   updatedAt?: Maybe<DateTimeFilter>;
 }
 
+/** Лайки поста */
+export interface Like {
+  __typename?: 'Like';
+  id: Scalars['String'];
+}
+
 export interface LikeListRelationFilter {
   every?: Maybe<LikeWhereInput>;
   none?: Maybe<LikeWhereInput>;
   some?: Maybe<LikeWhereInput>;
+}
+
+export interface LikeOrderByInput {
+  createdById?: Maybe<SortOrder>;
+  id?: Maybe<SortOrder>;
+  postLikeId?: Maybe<SortOrder>;
 }
 
 export interface LikeWhereInput {
@@ -217,6 +229,10 @@ export interface LikeWhereInput {
   id?: Maybe<StringFilter>;
   postLike?: Maybe<PostWhereInput>;
   postLikeId?: Maybe<StringFilter>;
+}
+
+export interface LikeWhereUniqueInput {
+  id?: Maybe<Scalars['String']>;
 }
 
 /** Грибы */
@@ -247,6 +263,7 @@ export interface MashroomWhereUniqueInput {
 
 export interface Mutation {
   __typename?: 'Mutation';
+  createPost: Post;
   createResetPasswordProcessor: ResetPasswordResponse;
   resetPasswordProcessor: AuthPayload;
   /** Авторизация */
@@ -256,6 +273,11 @@ export interface Mutation {
   /** Загрузка файла */
   singleUpload?: Maybe<File>;
 }
+
+
+export type MutationCreatePostArgs = {
+  data: PostCreateInput;
+};
 
 
 export type MutationCreateResetPasswordProcessorArgs = {
@@ -385,10 +407,16 @@ export interface Post {
   /** Когда создан */
   createdAt: Scalars['DateTime'];
   id: Scalars['String'];
+  likes?: Maybe<Array<Like>>;
   text?: Maybe<Scalars['String']>;
   title: Scalars['String'];
   /** Когда обновлен */
   updatedAt: Scalars['DateTime'];
+}
+
+export interface PostCreateInput {
+  text?: Maybe<Scalars['String']>;
+  title: Scalars['String'];
 }
 
 export interface PostListRelationFilter {
@@ -435,6 +463,10 @@ export interface Query {
   files: Array<File>;
   /** Количество файлов */
   filesCount: Scalars['Int'];
+  /** Лайк */
+  like?: Maybe<Like>;
+  /** Список лайков */
+  likes: Array<Like>;
   /** Гриб */
   mashroom?: Maybe<Mashroom>;
   /** Список грибов */
@@ -470,6 +502,20 @@ export type QueryFilesArgs = {
 
 export type QueryFilesCountArgs = {
   where?: Maybe<FileWhereInput>;
+};
+
+
+export type QueryLikeArgs = {
+  where: LikeWhereUniqueInput;
+};
+
+
+export type QueryLikesArgs = {
+  cursor?: Maybe<LikeWhereUniqueInput>;
+  orderBy?: Maybe<Array<LikeOrderByInput>>;
+  skip?: Maybe<Scalars['Int']>;
+  take?: Maybe<Scalars['Int']>;
+  where?: Maybe<LikeWhereInput>;
 };
 
 
