@@ -20,33 +20,41 @@ export type FileFieldPolicy = {
 	size?: FieldPolicy<any> | FieldReadFunction<any>,
 	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>
 };
+export type LikeKeySpecifier = ('id' | LikeKeySpecifier)[];
+export type LikeFieldPolicy = {
+	id?: FieldPolicy<any> | FieldReadFunction<any>
+};
 export type MashroomKeySpecifier = ('id' | 'mashname' | 'posts' | MashroomKeySpecifier)[];
 export type MashroomFieldPolicy = {
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	mashname?: FieldPolicy<any> | FieldReadFunction<any>,
 	posts?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type MutationKeySpecifier = ('createResetPasswordProcessor' | 'resetPasswordProcessor' | 'signin' | 'signup' | 'singleUpload' | MutationKeySpecifier)[];
+export type MutationKeySpecifier = ('createPost' | 'createResetPasswordProcessor' | 'resetPasswordProcessor' | 'signin' | 'signup' | 'singleUpload' | MutationKeySpecifier)[];
 export type MutationFieldPolicy = {
+	createPost?: FieldPolicy<any> | FieldReadFunction<any>,
 	createResetPasswordProcessor?: FieldPolicy<any> | FieldReadFunction<any>,
 	resetPasswordProcessor?: FieldPolicy<any> | FieldReadFunction<any>,
 	signin?: FieldPolicy<any> | FieldReadFunction<any>,
 	signup?: FieldPolicy<any> | FieldReadFunction<any>,
 	singleUpload?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type PostKeySpecifier = ('createdAt' | 'id' | 'text' | 'title' | 'updatedAt' | PostKeySpecifier)[];
+export type PostKeySpecifier = ('createdAt' | 'id' | 'likes' | 'text' | 'title' | 'updatedAt' | PostKeySpecifier)[];
 export type PostFieldPolicy = {
 	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	likes?: FieldPolicy<any> | FieldReadFunction<any>,
 	text?: FieldPolicy<any> | FieldReadFunction<any>,
 	title?: FieldPolicy<any> | FieldReadFunction<any>,
 	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type QueryKeySpecifier = ('file' | 'files' | 'filesCount' | 'mashroom' | 'mashrooms' | 'me' | 'post' | 'posts' | 'tokens' | 'user' | 'users' | 'usersCount' | QueryKeySpecifier)[];
+export type QueryKeySpecifier = ('file' | 'files' | 'filesCount' | 'like' | 'likes' | 'mashroom' | 'mashrooms' | 'me' | 'post' | 'posts' | 'tokens' | 'user' | 'users' | 'usersCount' | QueryKeySpecifier)[];
 export type QueryFieldPolicy = {
 	file?: FieldPolicy<any> | FieldReadFunction<any>,
 	files?: FieldPolicy<any> | FieldReadFunction<any>,
 	filesCount?: FieldPolicy<any> | FieldReadFunction<any>,
+	like?: FieldPolicy<any> | FieldReadFunction<any>,
+	likes?: FieldPolicy<any> | FieldReadFunction<any>,
 	mashroom?: FieldPolicy<any> | FieldReadFunction<any>,
 	mashrooms?: FieldPolicy<any> | FieldReadFunction<any>,
 	me?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -104,6 +112,10 @@ export type TypedTypePolicies = TypePolicies & {
 	File?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | FileKeySpecifier | (() => undefined | FileKeySpecifier),
 		fields?: FileFieldPolicy,
+	},
+	Like?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | LikeKeySpecifier | (() => undefined | LikeKeySpecifier),
+		fields?: LikeFieldPolicy,
 	},
 	Mashroom?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | MashroomKeySpecifier | (() => undefined | MashroomKeySpecifier),

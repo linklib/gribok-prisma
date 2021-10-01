@@ -274,7 +274,7 @@ input MashroomWhereUniqueInput {
 }
 
 type Mutation {
-  createPost(where: PostCreateInput!): Post!
+  createPost(data: PostCreateInput!): Post!
   createResetPasswordProcessor(
     where: UserWhereUniqueInput!
   ): ResetPasswordResponse!

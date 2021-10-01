@@ -5,17 +5,25 @@ export const createpost: FieldResolver<'Mutation', 'createPost'> = async (
   args,
   ctx
 ) => {
-  const title: string = args.where.title || {}
-  const text: string = args.where.text || {}
+  const { currentUser } = ctx
+
+  if (!currentUser) {
+    throw new Error('Не был получен пользователь')
+  }
+
+  const { title, text } = args.data
 
   const post = await ctx.prisma.post.create({
     data: {
       title,
       text,
+      CreatedBy: {
+        connect: {
+          id: currentUser.id,
+        },
+      },
     },
   })
 
-  return {
-    data: post,
-  }
+  return post
 }
