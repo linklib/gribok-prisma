@@ -301,6 +301,7 @@ type Mutation {
     """
     file: Upload
   ): File
+  updatePost(data: PostUpdateInput!, where: PostWhereUniqueInput!): Post!
 }
 
 input NestedBoolFilter {
@@ -436,6 +437,11 @@ input PostOrderByInput {
   text: SortOrder
   title: SortOrder
   updatedAt: SortOrder
+}
+
+input PostUpdateInput {
+  text: String
+  title: String
 }
 
 input PostWhereInput {

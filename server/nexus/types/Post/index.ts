@@ -2,6 +2,7 @@
 //import { objectType, enumType, extendType, inputObjectType, nonNull } from 'nexus'
 import { objectType, extendType, inputObjectType, nonNull } from 'nexus'
 import { createpost } from './resolvers/createpost'
+import { updatepost } from './resolvers/updatepost'
 
 export const Post = objectType({
   name: 'Post',
@@ -53,6 +54,14 @@ export const PostCreateInput = inputObjectType({
   },
 })
 
+export const PostUpdateInput = inputObjectType({
+  name: 'PostUpdateInput',
+  definition(t) {
+    t.string('title')
+    t.string('text')
+  },
+})
+
 export const PostExtendMutation = extendType({
   type: 'Mutation',
   definition(t) {
@@ -62,6 +71,14 @@ export const PostExtendMutation = extendType({
         data: nonNull('PostCreateInput'),
       },
       resolve: createpost,
+    })
+    t.nonNull.field('updatePost', {
+      type: 'Post',
+      args: {
+        data: nonNull('PostUpdateInput'),
+        where: nonNull('PostWhereUniqueInput'),
+      },
+      resolve: updatepost,
     })
   },
 })

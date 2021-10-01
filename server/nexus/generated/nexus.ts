@@ -350,6 +350,11 @@ export interface NexusGenInputs {
     title?: NexusGenEnums['SortOrder'] | null // SortOrder
     updatedAt?: NexusGenEnums['SortOrder'] | null // SortOrder
   }
+  PostUpdateInput: {
+    // input type
+    text?: string | null // String
+    title?: string | null // String
+  }
   PostWhereInput: {
     // input type
     AND?: NexusGenInputs['PostWhereInput'][] | null // [PostWhereInput!]
@@ -626,6 +631,7 @@ export interface NexusGenFieldTypes {
     signin: NexusGenRootTypes['AuthPayload'] // AuthPayload!
     signup: NexusGenRootTypes['AuthPayload'] // AuthPayload!
     singleUpload: NexusGenRootTypes['File'] | null // File
+    updatePost: NexusGenRootTypes['Post'] // Post!
   }
   Post: {
     // field return type
@@ -734,6 +740,7 @@ export interface NexusGenFieldTypeNames {
     signin: 'AuthPayload'
     signup: 'AuthPayload'
     singleUpload: 'File'
+    updatePost: 'Post'
   }
   Post: {
     // field return type name
@@ -829,6 +836,11 @@ export interface NexusGenArgTypes {
       // args
       data?: NexusGenInputs['SingleUploadInput'] | null // SingleUploadInput
       file?: NexusGenScalars['Upload'] | null // Upload
+    }
+    updatePost: {
+      // args
+      data: NexusGenInputs['PostUpdateInput'] // PostUpdateInput!
+      where: NexusGenInputs['PostWhereUniqueInput'] // PostWhereUniqueInput!
     }
   }
   Query: {
