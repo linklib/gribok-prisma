@@ -272,6 +272,7 @@ export interface Mutation {
   signup: AuthPayload;
   /** Загрузка файла */
   singleUpload?: Maybe<File>;
+  updatePost: Post;
 }
 
 
@@ -304,6 +305,12 @@ export type MutationSignupArgs = {
 export type MutationSingleUploadArgs = {
   data?: Maybe<SingleUploadInput>;
   file?: Maybe<Scalars['Upload']>;
+};
+
+
+export type MutationUpdatePostArgs = {
+  data: PostUpdateInput;
+  where: PostWhereUniqueInput;
 };
 
 export interface NestedBoolFilter {
@@ -433,6 +440,11 @@ export interface PostOrderByInput {
   text?: Maybe<SortOrder>;
   title?: Maybe<SortOrder>;
   updatedAt?: Maybe<SortOrder>;
+}
+
+export interface PostUpdateInput {
+  text?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
 }
 
 export interface PostWhereInput {

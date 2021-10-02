@@ -403,12 +403,15 @@ input NestedStringNullableFilter {
 Пост
 """
 type Post {
+  CreatedById: User!
+
   """
   Когда создан
   """
   createdAt: DateTime!
   id: String!
   likes: [Like!]
+  mashroomId: Mashroom
   text: String
   title: String!
 

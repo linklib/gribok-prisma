@@ -635,9 +635,11 @@ export interface NexusGenFieldTypes {
   }
   Post: {
     // field return type
+    CreatedById: NexusGenRootTypes['User'] // User!
     createdAt: NexusGenScalars['DateTime'] // DateTime!
     id: string // String!
     likes: NexusGenRootTypes['Like'][] | null // [Like!]
+    mashroomId: NexusGenRootTypes['Mashroom'] | null // Mashroom
     text: string | null // String
     title: string // String!
     updatedAt: NexusGenScalars['DateTime'] // DateTime!
@@ -744,9 +746,11 @@ export interface NexusGenFieldTypeNames {
   }
   Post: {
     // field return type name
+    CreatedById: 'User'
     createdAt: 'DateTime'
     id: 'String'
     likes: 'Like'
+    mashroomId: 'Mashroom'
     text: 'String'
     title: 'String'
     updatedAt: 'DateTime'

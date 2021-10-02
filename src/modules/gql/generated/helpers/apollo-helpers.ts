@@ -30,14 +30,15 @@ export type MashroomFieldPolicy = {
 	mashname?: FieldPolicy<any> | FieldReadFunction<any>,
 	posts?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type MutationKeySpecifier = ('createPost' | 'createResetPasswordProcessor' | 'resetPasswordProcessor' | 'signin' | 'signup' | 'singleUpload' | MutationKeySpecifier)[];
+export type MutationKeySpecifier = ('createPost' | 'createResetPasswordProcessor' | 'resetPasswordProcessor' | 'signin' | 'signup' | 'singleUpload' | 'updatePost' | MutationKeySpecifier)[];
 export type MutationFieldPolicy = {
 	createPost?: FieldPolicy<any> | FieldReadFunction<any>,
 	createResetPasswordProcessor?: FieldPolicy<any> | FieldReadFunction<any>,
 	resetPasswordProcessor?: FieldPolicy<any> | FieldReadFunction<any>,
 	signin?: FieldPolicy<any> | FieldReadFunction<any>,
 	signup?: FieldPolicy<any> | FieldReadFunction<any>,
-	singleUpload?: FieldPolicy<any> | FieldReadFunction<any>
+	singleUpload?: FieldPolicy<any> | FieldReadFunction<any>,
+	updatePost?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type PostKeySpecifier = ('createdAt' | 'id' | 'likes' | 'text' | 'title' | 'updatedAt' | PostKeySpecifier)[];
 export type PostFieldPolicy = {

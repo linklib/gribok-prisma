@@ -22,6 +22,26 @@ export const Post = objectType({
     t.nonNull.string('title')
     t.string('text')
 
+    t.field('mashroomId', {
+      type: 'Mashroom',
+      resolve({ mashroomId }, _, ctx) {
+        return mashroomId
+          ? ctx.prisma.mashroom.findUnique({
+              where: { id: mashroomId },
+            })
+          : null
+      },
+    })
+
+    t.nonNull.field('CreatedById', {
+      type: 'User',
+      resolve({ CreatedById }, _, ctx) {
+        return CreatedById
+          ? ctx.prisma.user.findUnique({ where: { id: CreatedById } })
+          : null
+      },
+    })
+
     t.list.nonNull.field('likes', {
       type: 'Like',
       resolve(_root, _args, ctx) {
