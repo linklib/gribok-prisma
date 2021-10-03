@@ -411,10 +411,12 @@ export interface NestedStringNullableFilter {
 /** Пост */
 export interface Post {
   __typename?: 'Post';
+  CreatedById?: Maybe<User>;
   /** Когда создан */
   createdAt: Scalars['DateTime'];
   id: Scalars['String'];
   likes?: Maybe<Array<Like>>;
+  mashroomId?: Maybe<Scalars['String']>;
   text?: Maybe<Scalars['String']>;
   title: Scalars['String'];
   /** Когда обновлен */
@@ -449,11 +451,11 @@ export interface PostUpdateInput {
 
 export interface PostWhereInput {
   AND?: Maybe<Array<PostWhereInput>>;
-  CreatedBy?: Maybe<UserWhereInput>;
   Likes?: Maybe<LikeListRelationFilter>;
   NOT?: Maybe<Array<PostWhereInput>>;
   OR?: Maybe<Array<PostWhereInput>>;
   createdAt?: Maybe<DateTimeFilter>;
+  createdBy?: Maybe<UserWhereInput>;
   createdById?: Maybe<StringFilter>;
   id?: Maybe<StringFilter>;
   mashroom?: Maybe<MashroomWhereInput>;

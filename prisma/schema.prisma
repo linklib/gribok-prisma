@@ -115,16 +115,16 @@ model ResetPassword {
 }
 
 model Post {
-  id          String    @id @default(cuid()) @db.VarChar(32)
-  createdAt   DateTime  @default(now("0")) @db.DateTime(0)
-  updatedAt   DateTime  @default(now("0")) @updatedAt @db.DateTime(0)
-  mashroom    Mashroom? @relation(fields: [mashroomId], references: [id])
-  mashroomId  String?   @db.VarChar(32)
-  title       String
-  text        String?
+  id         String    @id @default(cuid()) @db.VarChar(32)
+  createdAt  DateTime  @default(now("0")) @db.DateTime(0)
+  updatedAt  DateTime  @default(now("0")) @updatedAt @db.DateTime(0)
+  mashroom   Mashroom? @relation(fields: [mashroomId], references: [id])
+  mashroomId String?   @db.VarChar(32)
+  title      String
+  text       String?
   createdById String    @db.VarChar(32)
-  CreatedBy   User      @relation(fields: [createdById], references: [id])
-  Likes       Like[]
+  createdBy   User      @relation(fields: [createdById], references: [id])
+  Likes      Like[]
 
   @@index([createdById], name: "User")
 }

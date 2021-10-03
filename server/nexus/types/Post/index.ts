@@ -21,7 +21,9 @@ export const Post = objectType({
     })
     t.nonNull.string('title')
     t.string('text')
+    t.string('mashroomId')
 
+    /*
     t.field('mashroomId', {
       type: 'Mashroom',
       resolve({ mashroomId }, _, ctx) {
@@ -32,12 +34,12 @@ export const Post = objectType({
           : null
       },
     })
-
-    t.nonNull.field('CreatedById', {
+*/
+    t.field('CreatedById', {
       type: 'User',
-      resolve({ CreatedById }, _, ctx) {
-        return CreatedById
-          ? ctx.prisma.user.findUnique({ where: { id: CreatedById } })
+      resolve({ createdById }, _, ctx) {
+        return createdById
+          ? ctx.prisma.user.findUnique({ where: { id: createdById } })
           : null
       },
     })

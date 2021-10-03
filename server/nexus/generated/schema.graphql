@@ -403,7 +403,7 @@ input NestedStringNullableFilter {
 Пост
 """
 type Post {
-  CreatedById: User!
+  CreatedById: User
 
   """
   Когда создан
@@ -411,7 +411,7 @@ type Post {
   createdAt: DateTime!
   id: String!
   likes: [Like!]
-  mashroomId: Mashroom
+  mashroomId: String
   text: String
   title: String!
 
@@ -449,11 +449,11 @@ input PostUpdateInput {
 
 input PostWhereInput {
   AND: [PostWhereInput!]
-  CreatedBy: UserWhereInput
   Likes: LikeListRelationFilter
   NOT: [PostWhereInput!]
   OR: [PostWhereInput!]
   createdAt: DateTimeFilter
+  createdBy: UserWhereInput
   createdById: StringFilter
   id: StringFilter
   mashroom: MashroomWhereInput

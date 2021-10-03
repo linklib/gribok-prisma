@@ -358,11 +358,11 @@ export interface NexusGenInputs {
   PostWhereInput: {
     // input type
     AND?: NexusGenInputs['PostWhereInput'][] | null // [PostWhereInput!]
-    CreatedBy?: NexusGenInputs['UserWhereInput'] | null // UserWhereInput
     Likes?: NexusGenInputs['LikeListRelationFilter'] | null // LikeListRelationFilter
     NOT?: NexusGenInputs['PostWhereInput'][] | null // [PostWhereInput!]
     OR?: NexusGenInputs['PostWhereInput'][] | null // [PostWhereInput!]
     createdAt?: NexusGenInputs['DateTimeFilter'] | null // DateTimeFilter
+    createdBy?: NexusGenInputs['UserWhereInput'] | null // UserWhereInput
     createdById?: NexusGenInputs['StringFilter'] | null // StringFilter
     id?: NexusGenInputs['StringFilter'] | null // StringFilter
     mashroom?: NexusGenInputs['MashroomWhereInput'] | null // MashroomWhereInput
@@ -635,11 +635,11 @@ export interface NexusGenFieldTypes {
   }
   Post: {
     // field return type
-    CreatedById: NexusGenRootTypes['User'] // User!
+    CreatedById: NexusGenRootTypes['User'] | null // User
     createdAt: NexusGenScalars['DateTime'] // DateTime!
     id: string // String!
     likes: NexusGenRootTypes['Like'][] | null // [Like!]
-    mashroomId: NexusGenRootTypes['Mashroom'] | null // Mashroom
+    mashroomId: string | null // String
     text: string | null // String
     title: string // String!
     updatedAt: NexusGenScalars['DateTime'] // DateTime!
@@ -750,7 +750,7 @@ export interface NexusGenFieldTypeNames {
     createdAt: 'DateTime'
     id: 'String'
     likes: 'Like'
-    mashroomId: 'Mashroom'
+    mashroomId: 'String'
     text: 'String'
     title: 'String'
     updatedAt: 'DateTime'

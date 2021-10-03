@@ -1,0 +1,26 @@
+query posts {
+  posts {
+    ...post
+  }
+}
+
+mutation createPost($data: PostCreateInput!) {
+  createPost(data: $data) {
+    ...post
+  }
+}
+
+fragment post on Post {
+  id
+  createdAt
+  updatedAt
+  title
+  text
+  mashroomId
+  CreatedById {
+    id
+  }
+  likes {
+    id
+  }
+}
