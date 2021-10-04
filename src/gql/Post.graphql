@@ -1,11 +1,21 @@
-query posts {
-  posts {
+query posts(
+  $where: PostWhereInput
+  $orderBy: [PostOrderByInput!]
+  $skip: Int
+  $take: Int
+) {
+  posts(where: $where, orderBy: $orderBy, skip: $skip, take: $take) {
+    ...post
+  }
+}
+mutation createPost($data: PostCreateInput!) {
+  createPost(data: $data) {
     ...post
   }
 }
 
-mutation createPost($data: PostCreateInput!) {
-  createPost(data: $data) {
+query PostUnique($where: PostWhereUniqueInput!) {
+  post(where: $where) {
     ...post
   }
 }
@@ -19,6 +29,7 @@ fragment post on Post {
   mashroomId
   CreatedById {
     id
+    username
   }
   likes {
     id

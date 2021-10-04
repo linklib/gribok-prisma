@@ -17,7 +17,7 @@ export const createpost: FieldResolver<'Mutation', 'createPost'> = async (
     data: {
       title,
       text,
-      CreatedBy: {
+      createdBy: {
         connect: {
           id: currentUser.id,
         },

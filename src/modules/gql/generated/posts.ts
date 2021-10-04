@@ -13,7 +13,12 @@ import { gql } from '@apollo/client';
 import { PostFragmentDoc } from './post';
 import * as Apollo from '@apollo/client';
 const defaultOptions =  {}
-export type PostsQueryVariables = Types.Exact<{ [key: string]: never; }>;
+export type PostsQueryVariables = Types.Exact<{
+  where?: Types.Maybe<Types.PostWhereInput>;
+  orderBy?: Types.Maybe<Array<Types.PostOrderByInput> | Types.PostOrderByInput>;
+  skip?: Types.Maybe<Types.Scalars['Int']>;
+  take?: Types.Maybe<Types.Scalars['Int']>;
+}>;
 
 
 export type PostsQuery = { __typename?: 'Query', posts: Array<(
@@ -23,8 +28,8 @@ export type PostsQuery = { __typename?: 'Query', posts: Array<(
 
 
 export const PostsDocument = gql`
-    query posts {
-  posts {
+    query posts($where: PostWhereInput, $orderBy: [PostOrderByInput!], $skip: Int, $take: Int) {
+  posts(where: $where, orderBy: $orderBy, skip: $skip, take: $take) {
     ...post
   }
 }
@@ -42,6 +47,10 @@ export const PostsDocument = gql`
  * @example
  * const { data, loading, error } = usePostsQuery({
  *   variables: {
+ *      where: // value for 'where'
+ *      orderBy: // value for 'orderBy'
+ *      skip: // value for 'skip'
+ *      take: // value for 'take'
  *   },
  * });
  */

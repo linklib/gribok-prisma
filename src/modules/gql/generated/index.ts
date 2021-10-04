@@ -1,4 +1,5 @@
 export * from './FileNoNesting';
+export * from './PostUnique';
 export * from './UserNoNesting';
 export * from './UserUnique';
 export * from './createPost';
