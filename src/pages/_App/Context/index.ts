@@ -10,6 +10,7 @@ export type ContextValue = {
 
   onAuthSuccess: (
     data: SignupMutation['signup'] | SigninMutation['signin']
+    //| CreatePostMutation['createPost']
   ) => void
 
   hello: string
