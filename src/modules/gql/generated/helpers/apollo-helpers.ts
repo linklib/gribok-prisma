@@ -24,10 +24,10 @@ export type LikeKeySpecifier = ('id' | LikeKeySpecifier)[];
 export type LikeFieldPolicy = {
 	id?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type MashroomKeySpecifier = ('id' | 'mashname' | 'posts' | MashroomKeySpecifier)[];
+export type MashroomKeySpecifier = ('id' | 'name' | 'posts' | MashroomKeySpecifier)[];
 export type MashroomFieldPolicy = {
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
-	mashname?: FieldPolicy<any> | FieldReadFunction<any>,
+	name?: FieldPolicy<any> | FieldReadFunction<any>,
 	posts?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type MutationKeySpecifier = ('createPost' | 'createResetPasswordProcessor' | 'resetPasswordProcessor' | 'signin' | 'signup' | 'singleUpload' | 'updatePost' | MutationKeySpecifier)[];
@@ -40,10 +40,11 @@ export type MutationFieldPolicy = {
 	singleUpload?: FieldPolicy<any> | FieldReadFunction<any>,
 	updatePost?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type PostKeySpecifier = ('CreatedById' | 'createdAt' | 'id' | 'likes' | 'mashroomId' | 'text' | 'title' | 'updatedAt' | PostKeySpecifier)[];
+export type PostKeySpecifier = ('CreatedBy' | 'createdAt' | 'createdById' | 'id' | 'likes' | 'mashroomId' | 'text' | 'title' | 'updatedAt' | PostKeySpecifier)[];
 export type PostFieldPolicy = {
-	CreatedById?: FieldPolicy<any> | FieldReadFunction<any>,
+	CreatedBy?: FieldPolicy<any> | FieldReadFunction<any>,
 	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	createdById?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	likes?: FieldPolicy<any> | FieldReadFunction<any>,
 	mashroomId?: FieldPolicy<any> | FieldReadFunction<any>,

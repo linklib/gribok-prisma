@@ -4,7 +4,14 @@
  */
 
 import type { PrismaContext } from './../context/index'
-import type { User, File, ResetPassword, Token, Post } from '@prisma/client'
+import type {
+  User,
+  File,
+  ResetPassword,
+  Token,
+  Post,
+  Mashroom,
+} from '@prisma/client'
 import type { core } from 'nexus'
 declare global {
   interface NexusGenCustomInputMethods<TypeName extends string> {
@@ -199,7 +206,7 @@ export interface NexusGenInputs {
     // input type
     createdById?: NexusGenEnums['SortOrder'] | null // SortOrder
     id?: NexusGenEnums['SortOrder'] | null // SortOrder
-    postLikeId?: NexusGenEnums['SortOrder'] | null // SortOrder
+    postId?: NexusGenEnums['SortOrder'] | null // SortOrder
   }
   LikeWhereInput: {
     // input type
@@ -207,10 +214,10 @@ export interface NexusGenInputs {
     CreatedBy?: NexusGenInputs['UserWhereInput'] | null // UserWhereInput
     NOT?: NexusGenInputs['LikeWhereInput'][] | null // [LikeWhereInput!]
     OR?: NexusGenInputs['LikeWhereInput'][] | null // [LikeWhereInput!]
+    Post?: NexusGenInputs['PostWhereInput'] | null // PostWhereInput
     createdById?: NexusGenInputs['StringFilter'] | null // StringFilter
     id?: NexusGenInputs['StringFilter'] | null // StringFilter
-    postLike?: NexusGenInputs['PostWhereInput'] | null // PostWhereInput
-    postLikeId?: NexusGenInputs['StringFilter'] | null // StringFilter
+    postId?: NexusGenInputs['StringFilter'] | null // StringFilter
   }
   LikeWhereUniqueInput: {
     // input type
@@ -219,16 +226,16 @@ export interface NexusGenInputs {
   MashroomOrderByInput: {
     // input type
     id?: NexusGenEnums['SortOrder'] | null // SortOrder
-    mashname?: NexusGenEnums['SortOrder'] | null // SortOrder
+    name?: NexusGenEnums['SortOrder'] | null // SortOrder
   }
   MashroomWhereInput: {
     // input type
     AND?: NexusGenInputs['MashroomWhereInput'][] | null // [MashroomWhereInput!]
     NOT?: NexusGenInputs['MashroomWhereInput'][] | null // [MashroomWhereInput!]
     OR?: NexusGenInputs['MashroomWhereInput'][] | null // [MashroomWhereInput!]
+    Posts?: NexusGenInputs['PostListRelationFilter'] | null // PostListRelationFilter
     id?: NexusGenInputs['StringFilter'] | null // StringFilter
-    mashname?: NexusGenInputs['StringFilter'] | null // StringFilter
-    posts?: NexusGenInputs['PostListRelationFilter'] | null // PostListRelationFilter
+    name?: NexusGenInputs['StringFilter'] | null // StringFilter
   }
   MashroomWhereUniqueInput: {
     // input type
@@ -358,14 +365,14 @@ export interface NexusGenInputs {
   PostWhereInput: {
     // input type
     AND?: NexusGenInputs['PostWhereInput'][] | null // [PostWhereInput!]
+    CreatedBy?: NexusGenInputs['UserWhereInput'] | null // UserWhereInput
     Likes?: NexusGenInputs['LikeListRelationFilter'] | null // LikeListRelationFilter
+    Mashroom?: NexusGenInputs['MashroomWhereInput'] | null // MashroomWhereInput
     NOT?: NexusGenInputs['PostWhereInput'][] | null // [PostWhereInput!]
     OR?: NexusGenInputs['PostWhereInput'][] | null // [PostWhereInput!]
     createdAt?: NexusGenInputs['DateTimeFilter'] | null // DateTimeFilter
-    createdBy?: NexusGenInputs['UserWhereInput'] | null // UserWhereInput
     createdById?: NexusGenInputs['StringFilter'] | null // StringFilter
     id?: NexusGenInputs['StringFilter'] | null // StringFilter
-    mashroom?: NexusGenInputs['MashroomWhereInput'] | null // MashroomWhereInput
     mashroomId?: NexusGenInputs['StringNullableFilter'] | null // StringNullableFilter
     text?: NexusGenInputs['StringNullableFilter'] | null // StringNullableFilter
     title?: NexusGenInputs['StringFilter'] | null // StringFilter
@@ -556,11 +563,7 @@ export interface NexusGenObjects {
     // root type
     id: string // String!
   }
-  Mashroom: {
-    // root type
-    id: string // String!
-    mashname?: string | null // String
-  }
+  Mashroom: Mashroom
   Mutation: {}
   Post: Post
   Query: {}
@@ -620,7 +623,7 @@ export interface NexusGenFieldTypes {
   Mashroom: {
     // field return type
     id: string // String!
-    mashname: string | null // String
+    name: string // String!
     posts: NexusGenRootTypes['Post'][] | null // [Post!]
   }
   Mutation: {
@@ -635,8 +638,9 @@ export interface NexusGenFieldTypes {
   }
   Post: {
     // field return type
-    CreatedById: NexusGenRootTypes['User'] | null // User
+    CreatedBy: NexusGenRootTypes['User'] | null // User
     createdAt: NexusGenScalars['DateTime'] // DateTime!
+    createdById: string // ID!
     id: string // String!
     likes: NexusGenRootTypes['Like'][] | null // [Like!]
     mashroomId: string | null // String
@@ -731,7 +735,7 @@ export interface NexusGenFieldTypeNames {
   Mashroom: {
     // field return type name
     id: 'String'
-    mashname: 'String'
+    name: 'String'
     posts: 'Post'
   }
   Mutation: {
@@ -746,8 +750,9 @@ export interface NexusGenFieldTypeNames {
   }
   Post: {
     // field return type name
-    CreatedById: 'User'
+    CreatedBy: 'User'
     createdAt: 'DateTime'
+    createdById: 'ID'
     id: 'String'
     likes: 'Like'
     mashroomId: 'String'

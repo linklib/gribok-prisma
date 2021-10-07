@@ -217,7 +217,7 @@ export interface LikeListRelationFilter {
 export interface LikeOrderByInput {
   createdById?: Maybe<SortOrder>;
   id?: Maybe<SortOrder>;
-  postLikeId?: Maybe<SortOrder>;
+  postId?: Maybe<SortOrder>;
 }
 
 export interface LikeWhereInput {
@@ -225,10 +225,10 @@ export interface LikeWhereInput {
   CreatedBy?: Maybe<UserWhereInput>;
   NOT?: Maybe<Array<LikeWhereInput>>;
   OR?: Maybe<Array<LikeWhereInput>>;
+  Post?: Maybe<PostWhereInput>;
   createdById?: Maybe<StringFilter>;
   id?: Maybe<StringFilter>;
-  postLike?: Maybe<PostWhereInput>;
-  postLikeId?: Maybe<StringFilter>;
+  postId?: Maybe<StringFilter>;
 }
 
 export interface LikeWhereUniqueInput {
@@ -239,22 +239,22 @@ export interface LikeWhereUniqueInput {
 export interface Mashroom {
   __typename?: 'Mashroom';
   id: Scalars['String'];
-  mashname?: Maybe<Scalars['String']>;
+  name: Scalars['String'];
   posts?: Maybe<Array<Post>>;
 }
 
 export interface MashroomOrderByInput {
   id?: Maybe<SortOrder>;
-  mashname?: Maybe<SortOrder>;
+  name?: Maybe<SortOrder>;
 }
 
 export interface MashroomWhereInput {
   AND?: Maybe<Array<MashroomWhereInput>>;
   NOT?: Maybe<Array<MashroomWhereInput>>;
   OR?: Maybe<Array<MashroomWhereInput>>;
+  Posts?: Maybe<PostListRelationFilter>;
   id?: Maybe<StringFilter>;
-  mashname?: Maybe<StringFilter>;
-  posts?: Maybe<PostListRelationFilter>;
+  name?: Maybe<StringFilter>;
 }
 
 export interface MashroomWhereUniqueInput {
@@ -411,9 +411,10 @@ export interface NestedStringNullableFilter {
 /** Пост */
 export interface Post {
   __typename?: 'Post';
-  CreatedById?: Maybe<User>;
+  CreatedBy?: Maybe<User>;
   /** Когда создан */
   createdAt: Scalars['DateTime'];
+  createdById: Scalars['ID'];
   id: Scalars['String'];
   likes?: Maybe<Array<Like>>;
   mashroomId?: Maybe<Scalars['String']>;
@@ -451,14 +452,14 @@ export interface PostUpdateInput {
 
 export interface PostWhereInput {
   AND?: Maybe<Array<PostWhereInput>>;
+  CreatedBy?: Maybe<UserWhereInput>;
   Likes?: Maybe<LikeListRelationFilter>;
+  Mashroom?: Maybe<MashroomWhereInput>;
   NOT?: Maybe<Array<PostWhereInput>>;
   OR?: Maybe<Array<PostWhereInput>>;
   createdAt?: Maybe<DateTimeFilter>;
-  createdBy?: Maybe<UserWhereInput>;
   createdById?: Maybe<StringFilter>;
   id?: Maybe<StringFilter>;
-  mashroom?: Maybe<MashroomWhereInput>;
   mashroomId?: Maybe<StringNullableFilter>;
   text?: Maybe<StringNullableFilter>;
   title?: Maybe<StringFilter>;

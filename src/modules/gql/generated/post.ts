@@ -9,7 +9,7 @@
 import * as Types from './types';
 
 import { gql } from '@apollo/client';
-export type PostFragment = { __typename?: 'Post', id: string, createdAt: globalThis.Date, updatedAt: globalThis.Date, title: string, text?: Types.Maybe<string>, mashroomId?: Types.Maybe<string>, CreatedById?: Types.Maybe<{ __typename?: 'User', id: string, username?: Types.Maybe<string> }>, likes?: Types.Maybe<Array<{ __typename?: 'Like', id: string }>> };
+export type PostFragment = { __typename?: 'Post', id: string, createdAt: globalThis.Date, updatedAt: globalThis.Date, title: string, text?: Types.Maybe<string>, mashroomId?: Types.Maybe<string>, CreatedBy?: Types.Maybe<{ __typename?: 'User', id: string, username?: Types.Maybe<string> }>, likes?: Types.Maybe<Array<{ __typename?: 'Like', id: string }>> };
 
 export const PostFragmentDoc = gql`
     fragment post on Post {
@@ -19,7 +19,7 @@ export const PostFragmentDoc = gql`
   title
   text
   mashroomId
-  CreatedById {
+  CreatedBy {
     id
     username
   }

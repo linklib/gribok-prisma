@@ -23,9 +23,11 @@ export const PostsPageView: React.FC<PostsPageViewProps> = ({ posts }) => {
                 </td>
                 <td>{post.text}</td>
                 <td>
-                  <Link href={`/users/${post.CreatedById?.id}`}>
-                    {post.CreatedById?.username}
-                  </Link>
+                  {post.CreatedBy ? (
+                    <Link href={`/users/${post.CreatedBy.id}`}>
+                      {post.CreatedBy.username}
+                    </Link>
+                  ) : null}
                 </td>
               </tr>
             )

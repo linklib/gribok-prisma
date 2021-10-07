@@ -52,16 +52,16 @@ interface NexusPrismaInputs {
       ordering: 'id' | 'createdAt' | 'updatedAt' | 'code' | 'password' | 'validTill' | 'User'
     }
     posts: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'createdAt' | 'updatedAt' | 'mashroom' | 'mashroomId' | 'title' | 'text' | 'createdById' | 'createdBy' | 'Likes'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'createdAt' | 'updatedAt' | 'Mashroom' | 'mashroomId' | 'title' | 'text' | 'createdById' | 'CreatedBy' | 'Likes'
       ordering: 'id' | 'createdAt' | 'updatedAt' | 'mashroomId' | 'title' | 'text' | 'createdById'
     }
     mashrooms: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'mashname' | 'posts'
-      ordering: 'id' | 'mashname'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'name' | 'Posts'
+      ordering: 'id' | 'name'
     }
     likes: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'postLikeId' | 'postLike' | 'createdById' | 'CreatedBy'
-      ordering: 'id' | 'postLikeId' | 'createdById'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'postId' | 'Post' | 'createdById' | 'CreatedBy'
+      ordering: 'id' | 'postId' | 'createdById'
     }
   },
   User: {
@@ -82,12 +82,12 @@ interface NexusPrismaInputs {
       ordering: 'id' | 'createdAt' | 'updatedAt' | 'code' | 'password' | 'validTill' | 'User'
     }
     Posts: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'createdAt' | 'updatedAt' | 'mashroom' | 'mashroomId' | 'title' | 'text' | 'createdById' | 'createdBy' | 'Likes'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'createdAt' | 'updatedAt' | 'Mashroom' | 'mashroomId' | 'title' | 'text' | 'createdById' | 'CreatedBy' | 'Likes'
       ordering: 'id' | 'createdAt' | 'updatedAt' | 'mashroomId' | 'title' | 'text' | 'createdById'
     }
     Likes: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'postLikeId' | 'postLike' | 'createdById' | 'CreatedBy'
-      ordering: 'id' | 'postLikeId' | 'createdById'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'postId' | 'Post' | 'createdById' | 'CreatedBy'
+      ordering: 'id' | 'postId' | 'createdById'
     }
   }
   Token: {
@@ -107,13 +107,13 @@ interface NexusPrismaInputs {
   }
   Post: {
     Likes: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'postLikeId' | 'postLike' | 'createdById' | 'CreatedBy'
-      ordering: 'id' | 'postLikeId' | 'createdById'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'postId' | 'Post' | 'createdById' | 'CreatedBy'
+      ordering: 'id' | 'postId' | 'createdById'
     }
   }
   Mashroom: {
-    posts: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'createdAt' | 'updatedAt' | 'mashroom' | 'mashroomId' | 'title' | 'text' | 'createdById' | 'createdBy' | 'Likes'
+    Posts: {
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'createdAt' | 'updatedAt' | 'Mashroom' | 'mashroomId' | 'title' | 'text' | 'createdById' | 'CreatedBy' | 'Likes'
       ordering: 'id' | 'createdAt' | 'updatedAt' | 'mashroomId' | 'title' | 'text' | 'createdById'
     }
   }
@@ -280,23 +280,23 @@ interface NexusPrismaOutputs {
     id: 'String'
     createdAt: 'DateTime'
     updatedAt: 'DateTime'
-    mashroom: 'Mashroom'
+    Mashroom: 'Mashroom'
     mashroomId: 'String'
     title: 'String'
     text: 'String'
     createdById: 'String'
-    createdBy: 'User'
+    CreatedBy: 'User'
     Likes: 'Like'
   }
   Mashroom: {
     id: 'String'
-    mashname: 'String'
-    posts: 'Post'
+    name: 'String'
+    Posts: 'Post'
   }
   Like: {
     id: 'String'
-    postLikeId: 'String'
-    postLike: 'Post'
+    postId: 'String'
+    Post: 'Post'
     createdById: 'String'
     CreatedBy: 'User'
   }

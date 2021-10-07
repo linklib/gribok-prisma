@@ -27,7 +27,7 @@ fragment post on Post {
   title
   text
   mashroomId
-  CreatedById {
+  CreatedBy {
     id
     username
   }
