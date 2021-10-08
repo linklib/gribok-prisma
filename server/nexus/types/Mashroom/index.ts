@@ -5,9 +5,13 @@ import { objectType, extendType } from 'nexus'
 export const Mashroom = objectType({
   name: 'Mashroom',
   description: 'Грибы',
+  sourceType: {
+    module: '@prisma/client',
+    export: 'Mashroom',
+  },
   definition(t) {
     t.nonNull.string('id')
-    t.string('mashname')
+    t.nonNull.string('name')
     t.list.nonNull.field('posts', {
       type: 'Post',
       resolve(_root, _args, ctx) {

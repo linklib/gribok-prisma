@@ -228,7 +228,7 @@ input LikeListRelationFilter {
 input LikeOrderByInput {
   createdById: SortOrder
   id: SortOrder
-  postLikeId: SortOrder
+  postId: SortOrder
 }
 
 input LikeWhereInput {
@@ -236,10 +236,10 @@ input LikeWhereInput {
   CreatedBy: UserWhereInput
   NOT: [LikeWhereInput!]
   OR: [LikeWhereInput!]
+  Post: PostWhereInput
   createdById: StringFilter
   id: StringFilter
-  postLike: PostWhereInput
-  postLikeId: StringFilter
+  postId: StringFilter
 }
 
 input LikeWhereUniqueInput {
@@ -251,22 +251,22 @@ input LikeWhereUniqueInput {
 """
 type Mashroom {
   id: String!
-  mashname: String
+  name: String!
   posts: [Post!]
 }
 
 input MashroomOrderByInput {
   id: SortOrder
-  mashname: SortOrder
+  name: SortOrder
 }
 
 input MashroomWhereInput {
   AND: [MashroomWhereInput!]
   NOT: [MashroomWhereInput!]
   OR: [MashroomWhereInput!]
+  Posts: PostListRelationFilter
   id: StringFilter
-  mashname: StringFilter
-  posts: PostListRelationFilter
+  name: StringFilter
 }
 
 input MashroomWhereUniqueInput {
@@ -403,12 +403,13 @@ input NestedStringNullableFilter {
 Пост
 """
 type Post {
-  CreatedById: User
+  CreatedBy: User
 
   """
   Когда создан
   """
   createdAt: DateTime!
+  createdById: ID!
   id: String!
   likes: [Like!]
   mashroomId: String
@@ -449,14 +450,14 @@ input PostUpdateInput {
 
 input PostWhereInput {
   AND: [PostWhereInput!]
+  CreatedBy: UserWhereInput
   Likes: LikeListRelationFilter
+  Mashroom: MashroomWhereInput
   NOT: [PostWhereInput!]
   OR: [PostWhereInput!]
   createdAt: DateTimeFilter
-  createdBy: UserWhereInput
   createdById: StringFilter
   id: StringFilter
-  mashroom: MashroomWhereInput
   mashroomId: StringNullableFilter
   text: StringNullableFilter
   title: StringFilter

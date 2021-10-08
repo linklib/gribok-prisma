@@ -35,7 +35,8 @@ export const Post = objectType({
       },
     })
 */
-    t.field('CreatedById', {
+    t.nonNull.id('createdById')
+    t.field('CreatedBy', {
       type: 'User',
       resolve({ createdById }, _, ctx) {
         return createdById
