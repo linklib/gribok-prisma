@@ -1,5 +1,6 @@
 //import React, { useCallback, useContext, useEffect, useMemo } from 'react'
 import React, { useCallback, useEffect, useMemo } from 'react'
+import { useRouter } from 'next/router'
 
 import { Controller, ControllerProps, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -21,6 +22,7 @@ import { CreatePostFormStyled } from './styles'
  */
 const CreatePostForm: React.FC = () => {
   //const context = useContext(Context)
+  const router = useRouter()
 
   /**
    * Описываем структуру формы в соответствии с типизацией
@@ -81,15 +83,15 @@ const CreatePostForm: React.FC = () => {
       variables: {
         data,
       },
-    }) /*
+    })
       .then((r) => {
         if (r.data?.createPost) {
-          context?.onAuthSuccess(r.data.createPost)
+          router.push(`/posts/${r.data.createPost.id}`)
         }
       })
       .catch((error) => {
         alert(error.message)
-      })*/
+      })
   })
 
   /**
