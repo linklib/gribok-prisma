@@ -22,6 +22,7 @@ interface PrismaModels {
   Post: Prisma.Post
   Mashroom: Prisma.Mashroom
   Like: Prisma.Like
+  PostImage: Prisma.PostImage
 }
 
 // Prisma input types metadata
@@ -36,8 +37,8 @@ interface NexusPrismaInputs {
       ordering: 'id' | 'createdAt' | 'expiredAt' | 'userId'
     }
     files: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'createdAt' | 'updatedAt' | 'path' | 'filename' | 'name' | 'mimetype' | 'encoding' | 'size' | 'rank' | 'createdById' | 'CreatedBy' | 'postId' | 'Post'
-      ordering: 'id' | 'createdAt' | 'updatedAt' | 'path' | 'filename' | 'name' | 'mimetype' | 'encoding' | 'size' | 'rank' | 'createdById' | 'postId'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'createdAt' | 'updatedAt' | 'path' | 'filename' | 'name' | 'mimetype' | 'encoding' | 'size' | 'rank' | 'createdById' | 'CreatedBy' | 'PostImages'
+      ordering: 'id' | 'createdAt' | 'updatedAt' | 'path' | 'filename' | 'name' | 'mimetype' | 'encoding' | 'size' | 'rank' | 'createdById'
     }
     letters: {
       filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'createdAt' | 'updatedAt' | 'email' | 'subject' | 'message' | 'status' | 'errorMessage' | 'rank' | 'deleteOnSend' | 'replyTo' | 'returnTo' | 'createdById' | 'CreatedBy'
@@ -52,7 +53,7 @@ interface NexusPrismaInputs {
       ordering: 'id' | 'createdAt' | 'updatedAt' | 'code' | 'password' | 'validTill' | 'User'
     }
     posts: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'createdAt' | 'updatedAt' | 'Mashroom' | 'mashroomId' | 'title' | 'text' | 'createdById' | 'CreatedBy' | 'Likes' | 'Files'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'createdAt' | 'updatedAt' | 'Mashroom' | 'mashroomId' | 'title' | 'text' | 'createdById' | 'CreatedBy' | 'Likes' | 'PostImages'
       ordering: 'id' | 'createdAt' | 'updatedAt' | 'mashroomId' | 'title' | 'text' | 'createdById'
     }
     mashrooms: {
@@ -63,6 +64,10 @@ interface NexusPrismaInputs {
       filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'postId' | 'Post' | 'createdById' | 'CreatedBy'
       ordering: 'id' | 'postId' | 'createdById'
     }
+    postImages: {
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'postId' | 'Post' | 'fileId' | 'File'
+      ordering: 'id' | 'postId' | 'fileId'
+    }
   },
   User: {
     Tokens: {
@@ -70,8 +75,8 @@ interface NexusPrismaInputs {
       ordering: 'id' | 'createdAt' | 'expiredAt' | 'userId'
     }
     Files: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'createdAt' | 'updatedAt' | 'path' | 'filename' | 'name' | 'mimetype' | 'encoding' | 'size' | 'rank' | 'createdById' | 'CreatedBy' | 'postId' | 'Post'
-      ordering: 'id' | 'createdAt' | 'updatedAt' | 'path' | 'filename' | 'name' | 'mimetype' | 'encoding' | 'size' | 'rank' | 'createdById' | 'postId'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'createdAt' | 'updatedAt' | 'path' | 'filename' | 'name' | 'mimetype' | 'encoding' | 'size' | 'rank' | 'createdById' | 'CreatedBy' | 'PostImages'
+      ordering: 'id' | 'createdAt' | 'updatedAt' | 'path' | 'filename' | 'name' | 'mimetype' | 'encoding' | 'size' | 'rank' | 'createdById'
     }
     Letters: {
       filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'createdAt' | 'updatedAt' | 'email' | 'subject' | 'message' | 'status' | 'errorMessage' | 'rank' | 'deleteOnSend' | 'replyTo' | 'returnTo' | 'createdById' | 'CreatedBy'
@@ -82,7 +87,7 @@ interface NexusPrismaInputs {
       ordering: 'id' | 'createdAt' | 'updatedAt' | 'code' | 'password' | 'validTill' | 'User'
     }
     Posts: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'createdAt' | 'updatedAt' | 'Mashroom' | 'mashroomId' | 'title' | 'text' | 'createdById' | 'CreatedBy' | 'Likes' | 'Files'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'createdAt' | 'updatedAt' | 'Mashroom' | 'mashroomId' | 'title' | 'text' | 'createdById' | 'CreatedBy' | 'Likes' | 'PostImages'
       ordering: 'id' | 'createdAt' | 'updatedAt' | 'mashroomId' | 'title' | 'text' | 'createdById'
     }
     Likes: {
@@ -94,7 +99,10 @@ interface NexusPrismaInputs {
 
   }
   File: {
-
+    PostImages: {
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'postId' | 'Post' | 'fileId' | 'File'
+      ordering: 'id' | 'postId' | 'fileId'
+    }
   }
   Letter: {
 
@@ -110,18 +118,21 @@ interface NexusPrismaInputs {
       filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'postId' | 'Post' | 'createdById' | 'CreatedBy'
       ordering: 'id' | 'postId' | 'createdById'
     }
-    Files: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'createdAt' | 'updatedAt' | 'path' | 'filename' | 'name' | 'mimetype' | 'encoding' | 'size' | 'rank' | 'createdById' | 'CreatedBy' | 'postId' | 'Post'
-      ordering: 'id' | 'createdAt' | 'updatedAt' | 'path' | 'filename' | 'name' | 'mimetype' | 'encoding' | 'size' | 'rank' | 'createdById' | 'postId'
+    PostImages: {
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'postId' | 'Post' | 'fileId' | 'File'
+      ordering: 'id' | 'postId' | 'fileId'
     }
   }
   Mashroom: {
     Posts: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'createdAt' | 'updatedAt' | 'Mashroom' | 'mashroomId' | 'title' | 'text' | 'createdById' | 'CreatedBy' | 'Likes' | 'Files'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'createdAt' | 'updatedAt' | 'Mashroom' | 'mashroomId' | 'title' | 'text' | 'createdById' | 'CreatedBy' | 'Likes' | 'PostImages'
       ordering: 'id' | 'createdAt' | 'updatedAt' | 'mashroomId' | 'title' | 'text' | 'createdById'
     }
   }
   Like: {
+
+  }
+  PostImage: {
 
   }
 }
@@ -147,6 +158,8 @@ interface NexusPrismaOutputs {
     mashrooms: 'Mashroom'
     like: 'Like'
     likes: 'Like'
+    postImage: 'PostImage'
+    postImages: 'PostImage'
   },
   Mutation: {
     createOneUser: 'User'
@@ -203,6 +216,12 @@ interface NexusPrismaOutputs {
     deleteOneLike: 'Like'
     deleteManyLike: 'AffectedRowsOutput'
     upsertOneLike: 'Like'
+    createOnePostImage: 'PostImage'
+    updateOnePostImage: 'PostImage'
+    updateManyPostImage: 'AffectedRowsOutput'
+    deleteOnePostImage: 'PostImage'
+    deleteManyPostImage: 'AffectedRowsOutput'
+    upsertOnePostImage: 'PostImage'
   },
   User: {
     id: 'String'
@@ -244,8 +263,7 @@ interface NexusPrismaOutputs {
     rank: 'Int'
     createdById: 'String'
     CreatedBy: 'User'
-    postId: 'String'
-    Post: 'Post'
+    PostImages: 'PostImage'
   }
   Letter: {
     id: 'String'
@@ -293,7 +311,7 @@ interface NexusPrismaOutputs {
     createdById: 'String'
     CreatedBy: 'User'
     Likes: 'Like'
-    Files: 'File'
+    PostImages: 'PostImage'
   }
   Mashroom: {
     id: 'String'
@@ -306,6 +324,13 @@ interface NexusPrismaOutputs {
     Post: 'Post'
     createdById: 'String'
     CreatedBy: 'User'
+  }
+  PostImage: {
+    id: 'String'
+    postId: 'String'
+    Post: 'Post'
+    fileId: 'String'
+    File: 'File'
   }
 }
 
@@ -320,6 +345,7 @@ interface NexusPrismaMethods {
   Post: Typegen.NexusPrismaFields<'Post'>
   Mashroom: Typegen.NexusPrismaFields<'Mashroom'>
   Like: Typegen.NexusPrismaFields<'Like'>
+  PostImage: Typegen.NexusPrismaFields<'PostImage'>
   Query: Typegen.NexusPrismaFields<'Query'>
   Mutation: Typegen.NexusPrismaFields<'Mutation'>
 }

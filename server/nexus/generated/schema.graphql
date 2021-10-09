@@ -117,7 +117,6 @@ input FileOrderByInput {
   mimetype: SortOrder
   name: SortOrder
   path: SortOrder
-  postId: SortOrder
   rank: SortOrder
   size: SortOrder
   updatedAt: SortOrder
@@ -128,7 +127,7 @@ input FileWhereInput {
   CreatedBy: UserWhereInput
   NOT: [FileWhereInput!]
   OR: [FileWhereInput!]
-  Post: PostWhereInput
+  PostImages: PostImageListRelationFilter
   createdAt: DateTimeFilter
   createdById: StringNullableFilter
   encoding: StringFilter
@@ -137,7 +136,6 @@ input FileWhereInput {
   mimetype: StringFilter
   name: StringNullableFilter
   path: StringFilter
-  postId: StringNullableFilter
   rank: IntFilter
   size: FloatFilter
   updatedAt: DateTimeFilter
@@ -413,10 +411,10 @@ type Post {
   """
   createdAt: DateTime!
   createdById: ID!
-  files: [File!]
   id: String!
   likes: [Like!]
   mashroomId: String
+  postimages: [PostImage!]
   text: String
   title: String!
 
@@ -429,6 +427,42 @@ type Post {
 input PostCreateInput {
   text: String
   title: String!
+}
+
+"""
+Пост
+"""
+type PostImage {
+  fileId: ID!
+  id: String!
+  postId: ID!
+}
+
+input PostImageListRelationFilter {
+  every: PostImageWhereInput
+  none: PostImageWhereInput
+  some: PostImageWhereInput
+}
+
+input PostImageOrderByInput {
+  fileId: SortOrder
+  id: SortOrder
+  postId: SortOrder
+}
+
+input PostImageWhereInput {
+  AND: [PostImageWhereInput!]
+  File: FileWhereInput
+  NOT: [PostImageWhereInput!]
+  OR: [PostImageWhereInput!]
+  Post: PostWhereInput
+  fileId: StringFilter
+  id: StringFilter
+  postId: StringFilter
+}
+
+input PostImageWhereUniqueInput {
+  id: String
 }
 
 input PostListRelationFilter {
@@ -455,11 +489,11 @@ input PostUpdateInput {
 input PostWhereInput {
   AND: [PostWhereInput!]
   CreatedBy: UserWhereInput
-  Files: FileListRelationFilter
   Likes: LikeListRelationFilter
   Mashroom: MashroomWhereInput
   NOT: [PostWhereInput!]
   OR: [PostWhereInput!]
+  PostImages: PostImageListRelationFilter
   createdAt: DateTimeFilter
   createdById: StringFilter
   id: StringFilter
@@ -532,6 +566,22 @@ type Query {
   Пост
   """
   post(where: PostWhereUniqueInput!): Post
+
+  """
+  Картинка поста
+  """
+  postImage(where: PostImageWhereUniqueInput!): PostImage
+
+  """
+  Список картинок
+  """
+  postImages(
+    cursor: PostImageWhereUniqueInput
+    orderBy: [PostImageOrderByInput!]
+    skip: Int
+    take: Int
+    where: PostImageWhereInput
+  ): [PostImage!]!
 
   """
   Список постов

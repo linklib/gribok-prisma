@@ -52,10 +52,10 @@ export const Post = objectType({
       },
     })
 
-    t.list.nonNull.field('files', {
-      type: 'File',
+    t.list.nonNull.field('postimages', {
+      type: 'PostImage',
       resolve(_root, _args, ctx) {
-        return ctx.prisma.file.findMany()
+        return ctx.prisma.postImage.findMany()
       },
     })
   },

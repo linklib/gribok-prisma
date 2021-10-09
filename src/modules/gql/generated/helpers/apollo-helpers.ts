@@ -40,7 +40,7 @@ export type MutationFieldPolicy = {
 	singleUpload?: FieldPolicy<any> | FieldReadFunction<any>,
 	updatePost?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type PostKeySpecifier = ('CreatedBy' | 'createdAt' | 'createdById' | 'id' | 'likes' | 'mashroomId' | 'text' | 'title' | 'updatedAt' | PostKeySpecifier)[];
+export type PostKeySpecifier = ('CreatedBy' | 'createdAt' | 'createdById' | 'id' | 'likes' | 'mashroomId' | 'postimages' | 'text' | 'title' | 'updatedAt' | PostKeySpecifier)[];
 export type PostFieldPolicy = {
 	CreatedBy?: FieldPolicy<any> | FieldReadFunction<any>,
 	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -48,11 +48,18 @@ export type PostFieldPolicy = {
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
 	likes?: FieldPolicy<any> | FieldReadFunction<any>,
 	mashroomId?: FieldPolicy<any> | FieldReadFunction<any>,
+	postimages?: FieldPolicy<any> | FieldReadFunction<any>,
 	text?: FieldPolicy<any> | FieldReadFunction<any>,
 	title?: FieldPolicy<any> | FieldReadFunction<any>,
 	updatedAt?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type QueryKeySpecifier = ('file' | 'files' | 'filesCount' | 'like' | 'likes' | 'mashroom' | 'mashrooms' | 'me' | 'post' | 'posts' | 'tokens' | 'user' | 'users' | 'usersCount' | QueryKeySpecifier)[];
+export type PostImageKeySpecifier = ('fileId' | 'id' | 'postId' | PostImageKeySpecifier)[];
+export type PostImageFieldPolicy = {
+	fileId?: FieldPolicy<any> | FieldReadFunction<any>,
+	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	postId?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type QueryKeySpecifier = ('file' | 'files' | 'filesCount' | 'like' | 'likes' | 'mashroom' | 'mashrooms' | 'me' | 'post' | 'postImage' | 'postImages' | 'posts' | 'tokens' | 'user' | 'users' | 'usersCount' | QueryKeySpecifier)[];
 export type QueryFieldPolicy = {
 	file?: FieldPolicy<any> | FieldReadFunction<any>,
 	files?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -63,6 +70,8 @@ export type QueryFieldPolicy = {
 	mashrooms?: FieldPolicy<any> | FieldReadFunction<any>,
 	me?: FieldPolicy<any> | FieldReadFunction<any>,
 	post?: FieldPolicy<any> | FieldReadFunction<any>,
+	postImage?: FieldPolicy<any> | FieldReadFunction<any>,
+	postImages?: FieldPolicy<any> | FieldReadFunction<any>,
 	posts?: FieldPolicy<any> | FieldReadFunction<any>,
 	tokens?: FieldPolicy<any> | FieldReadFunction<any>,
 	user?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -132,6 +141,10 @@ export type TypedTypePolicies = TypePolicies & {
 	Post?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | PostKeySpecifier | (() => undefined | PostKeySpecifier),
 		fields?: PostFieldPolicy,
+	},
+	PostImage?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | PostImageKeySpecifier | (() => undefined | PostImageKeySpecifier),
+		fields?: PostImageFieldPolicy,
 	},
 	Query?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | QueryKeySpecifier | (() => undefined | QueryKeySpecifier),

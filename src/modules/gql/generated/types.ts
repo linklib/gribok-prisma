@@ -118,6 +118,7 @@ export interface FileWhereInput {
   CreatedBy?: Maybe<UserWhereInput>;
   NOT?: Maybe<Array<FileWhereInput>>;
   OR?: Maybe<Array<FileWhereInput>>;
+  PostImages?: Maybe<PostImageListRelationFilter>;
   createdAt?: Maybe<DateTimeFilter>;
   createdById?: Maybe<StringNullableFilter>;
   encoding?: Maybe<StringFilter>;
@@ -418,6 +419,7 @@ export interface Post {
   id: Scalars['String'];
   likes?: Maybe<Array<Like>>;
   mashroomId?: Maybe<Scalars['String']>;
+  postimages?: Maybe<Array<PostImage>>;
   text?: Maybe<Scalars['String']>;
   title: Scalars['String'];
   /** Когда обновлен */
@@ -427,6 +429,41 @@ export interface Post {
 export interface PostCreateInput {
   text?: Maybe<Scalars['String']>;
   title: Scalars['String'];
+}
+
+/** Пост */
+export interface PostImage {
+  __typename?: 'PostImage';
+  fileId: Scalars['ID'];
+  id: Scalars['String'];
+  postId: Scalars['ID'];
+}
+
+export interface PostImageListRelationFilter {
+  every?: Maybe<PostImageWhereInput>;
+  none?: Maybe<PostImageWhereInput>;
+  some?: Maybe<PostImageWhereInput>;
+}
+
+export interface PostImageOrderByInput {
+  fileId?: Maybe<SortOrder>;
+  id?: Maybe<SortOrder>;
+  postId?: Maybe<SortOrder>;
+}
+
+export interface PostImageWhereInput {
+  AND?: Maybe<Array<PostImageWhereInput>>;
+  File?: Maybe<FileWhereInput>;
+  NOT?: Maybe<Array<PostImageWhereInput>>;
+  OR?: Maybe<Array<PostImageWhereInput>>;
+  Post?: Maybe<PostWhereInput>;
+  fileId?: Maybe<StringFilter>;
+  id?: Maybe<StringFilter>;
+  postId?: Maybe<StringFilter>;
+}
+
+export interface PostImageWhereUniqueInput {
+  id?: Maybe<Scalars['String']>;
 }
 
 export interface PostListRelationFilter {
@@ -457,6 +494,7 @@ export interface PostWhereInput {
   Mashroom?: Maybe<MashroomWhereInput>;
   NOT?: Maybe<Array<PostWhereInput>>;
   OR?: Maybe<Array<PostWhereInput>>;
+  PostImages?: Maybe<PostImageListRelationFilter>;
   createdAt?: Maybe<DateTimeFilter>;
   createdById?: Maybe<StringFilter>;
   id?: Maybe<StringFilter>;
@@ -489,6 +527,10 @@ export interface Query {
   me?: Maybe<User>;
   /** Пост */
   post?: Maybe<Post>;
+  /** Картинка поста */
+  postImage?: Maybe<PostImage>;
+  /** Список картинок */
+  postImages: Array<PostImage>;
   /** Список постов */
   posts: Array<Post>;
   tokens: Array<Token>;
@@ -550,6 +592,20 @@ export type QueryMashroomsArgs = {
 
 export type QueryPostArgs = {
   where: PostWhereUniqueInput;
+};
+
+
+export type QueryPostImageArgs = {
+  where: PostImageWhereUniqueInput;
+};
+
+
+export type QueryPostImagesArgs = {
+  cursor?: Maybe<PostImageWhereUniqueInput>;
+  orderBy?: Maybe<Array<PostImageOrderByInput>>;
+  skip?: Maybe<Scalars['Int']>;
+  take?: Maybe<Scalars['Int']>;
+  where?: Maybe<PostImageWhereInput>;
 };
 
 

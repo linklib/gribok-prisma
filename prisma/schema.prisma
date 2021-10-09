@@ -56,8 +56,7 @@ model File {
   createdById String? @db.VarChar(32)
   CreatedBy   User?   @relation(fields: [createdById], references: [id])
 
-  postId      String? @db.VarChar(32)
-  Post        Post?   @relation(fields: [postId], references: [id])
+ PostImages  PostImage[]
 }
 
 model Letter {
@@ -128,7 +127,7 @@ model Post {
   createdById String    @db.VarChar(32)
   CreatedBy   User      @relation(fields: [createdById], references: [id])
   Likes       Like[]
-  Files       File[]
+  PostImages  PostImage[]
 
   @@index([createdById], name: "User")
 }
@@ -145,4 +144,12 @@ model Like {
   Post        Post   @relation(fields: [postId], references: [id])
   createdById String @db.VarChar(32)
   CreatedBy   User   @relation(fields: [createdById], references: [id])
+}
+
+model PostImage {
+  id      String @id @default(cuid()) @db.VarChar(32)
+  postId  String @db.VarChar(32)
+  Post    Post   @relation(fields: [postId], references: [id])
+  fileId  String @db.VarChar(32)
+  File    File   @relation(fields: [fileId], references: [id])
 }

@@ -11,6 +11,7 @@ import type {
   Token,
   Post,
   Mashroom,
+  PostImage,
 } from '@prisma/client'
 import type { core } from 'nexus'
 declare global {
@@ -111,7 +112,6 @@ export interface NexusGenInputs {
     mimetype?: NexusGenEnums['SortOrder'] | null // SortOrder
     name?: NexusGenEnums['SortOrder'] | null // SortOrder
     path?: NexusGenEnums['SortOrder'] | null // SortOrder
-    postId?: NexusGenEnums['SortOrder'] | null // SortOrder
     rank?: NexusGenEnums['SortOrder'] | null // SortOrder
     size?: NexusGenEnums['SortOrder'] | null // SortOrder
     updatedAt?: NexusGenEnums['SortOrder'] | null // SortOrder
@@ -122,7 +122,7 @@ export interface NexusGenInputs {
     CreatedBy?: NexusGenInputs['UserWhereInput'] | null // UserWhereInput
     NOT?: NexusGenInputs['FileWhereInput'][] | null // [FileWhereInput!]
     OR?: NexusGenInputs['FileWhereInput'][] | null // [FileWhereInput!]
-    Post?: NexusGenInputs['PostWhereInput'] | null // PostWhereInput
+    PostImages?: NexusGenInputs['PostImageListRelationFilter'] | null // PostImageListRelationFilter
     createdAt?: NexusGenInputs['DateTimeFilter'] | null // DateTimeFilter
     createdById?: NexusGenInputs['StringNullableFilter'] | null // StringNullableFilter
     encoding?: NexusGenInputs['StringFilter'] | null // StringFilter
@@ -131,7 +131,6 @@ export interface NexusGenInputs {
     mimetype?: NexusGenInputs['StringFilter'] | null // StringFilter
     name?: NexusGenInputs['StringNullableFilter'] | null // StringNullableFilter
     path?: NexusGenInputs['StringFilter'] | null // StringFilter
-    postId?: NexusGenInputs['StringNullableFilter'] | null // StringNullableFilter
     rank?: NexusGenInputs['IntFilter'] | null // IntFilter
     size?: NexusGenInputs['FloatFilter'] | null // FloatFilter
     updatedAt?: NexusGenInputs['DateTimeFilter'] | null // DateTimeFilter
@@ -344,6 +343,33 @@ export interface NexusGenInputs {
     text?: string | null // String
     title: string // String!
   }
+  PostImageListRelationFilter: {
+    // input type
+    every?: NexusGenInputs['PostImageWhereInput'] | null // PostImageWhereInput
+    none?: NexusGenInputs['PostImageWhereInput'] | null // PostImageWhereInput
+    some?: NexusGenInputs['PostImageWhereInput'] | null // PostImageWhereInput
+  }
+  PostImageOrderByInput: {
+    // input type
+    fileId?: NexusGenEnums['SortOrder'] | null // SortOrder
+    id?: NexusGenEnums['SortOrder'] | null // SortOrder
+    postId?: NexusGenEnums['SortOrder'] | null // SortOrder
+  }
+  PostImageWhereInput: {
+    // input type
+    AND?: NexusGenInputs['PostImageWhereInput'][] | null // [PostImageWhereInput!]
+    File?: NexusGenInputs['FileWhereInput'] | null // FileWhereInput
+    NOT?: NexusGenInputs['PostImageWhereInput'][] | null // [PostImageWhereInput!]
+    OR?: NexusGenInputs['PostImageWhereInput'][] | null // [PostImageWhereInput!]
+    Post?: NexusGenInputs['PostWhereInput'] | null // PostWhereInput
+    fileId?: NexusGenInputs['StringFilter'] | null // StringFilter
+    id?: NexusGenInputs['StringFilter'] | null // StringFilter
+    postId?: NexusGenInputs['StringFilter'] | null // StringFilter
+  }
+  PostImageWhereUniqueInput: {
+    // input type
+    id?: string | null // String
+  }
   PostListRelationFilter: {
     // input type
     every?: NexusGenInputs['PostWhereInput'] | null // PostWhereInput
@@ -369,11 +395,11 @@ export interface NexusGenInputs {
     // input type
     AND?: NexusGenInputs['PostWhereInput'][] | null // [PostWhereInput!]
     CreatedBy?: NexusGenInputs['UserWhereInput'] | null // UserWhereInput
-    Files?: NexusGenInputs['FileListRelationFilter'] | null // FileListRelationFilter
     Likes?: NexusGenInputs['LikeListRelationFilter'] | null // LikeListRelationFilter
     Mashroom?: NexusGenInputs['MashroomWhereInput'] | null // MashroomWhereInput
     NOT?: NexusGenInputs['PostWhereInput'][] | null // [PostWhereInput!]
     OR?: NexusGenInputs['PostWhereInput'][] | null // [PostWhereInput!]
+    PostImages?: NexusGenInputs['PostImageListRelationFilter'] | null // PostImageListRelationFilter
     createdAt?: NexusGenInputs['DateTimeFilter'] | null // DateTimeFilter
     createdById?: NexusGenInputs['StringFilter'] | null // StringFilter
     id?: NexusGenInputs['StringFilter'] | null // StringFilter
@@ -570,6 +596,7 @@ export interface NexusGenObjects {
   Mashroom: Mashroom
   Mutation: {}
   Post: Post
+  PostImage: PostImage
   Query: {}
   RequestError: {
     // root type
@@ -645,13 +672,19 @@ export interface NexusGenFieldTypes {
     CreatedBy: NexusGenRootTypes['User'] | null // User
     createdAt: NexusGenScalars['DateTime'] // DateTime!
     createdById: string // ID!
-    files: NexusGenRootTypes['File'][] | null // [File!]
     id: string // String!
     likes: NexusGenRootTypes['Like'][] | null // [Like!]
     mashroomId: string | null // String
+    postimages: NexusGenRootTypes['PostImage'][] | null // [PostImage!]
     text: string | null // String
     title: string // String!
     updatedAt: NexusGenScalars['DateTime'] // DateTime!
+  }
+  PostImage: {
+    // field return type
+    fileId: string // ID!
+    id: string // String!
+    postId: string // ID!
   }
   Query: {
     // field return type
@@ -664,6 +697,8 @@ export interface NexusGenFieldTypes {
     mashrooms: NexusGenRootTypes['Mashroom'][] // [Mashroom!]!
     me: NexusGenRootTypes['User'] | null // User
     post: NexusGenRootTypes['Post'] | null // Post
+    postImage: NexusGenRootTypes['PostImage'] | null // PostImage
+    postImages: NexusGenRootTypes['PostImage'][] // [PostImage!]!
     posts: NexusGenRootTypes['Post'][] // [Post!]!
     tokens: NexusGenRootTypes['Token'][] // [Token!]!
     user: NexusGenRootTypes['User'] | null // User
@@ -758,13 +793,19 @@ export interface NexusGenFieldTypeNames {
     CreatedBy: 'User'
     createdAt: 'DateTime'
     createdById: 'ID'
-    files: 'File'
     id: 'String'
     likes: 'Like'
     mashroomId: 'String'
+    postimages: 'PostImage'
     text: 'String'
     title: 'String'
     updatedAt: 'DateTime'
+  }
+  PostImage: {
+    // field return type name
+    fileId: 'ID'
+    id: 'String'
+    postId: 'ID'
   }
   Query: {
     // field return type name
@@ -777,6 +818,8 @@ export interface NexusGenFieldTypeNames {
     mashrooms: 'Mashroom'
     me: 'User'
     post: 'Post'
+    postImage: 'PostImage'
+    postImages: 'PostImage'
     posts: 'Post'
     tokens: 'Token'
     user: 'User'
@@ -902,6 +945,18 @@ export interface NexusGenArgTypes {
     post: {
       // args
       where: NexusGenInputs['PostWhereUniqueInput'] // PostWhereUniqueInput!
+    }
+    postImage: {
+      // args
+      where: NexusGenInputs['PostImageWhereUniqueInput'] // PostImageWhereUniqueInput!
+    }
+    postImages: {
+      // args
+      cursor?: NexusGenInputs['PostImageWhereUniqueInput'] | null // PostImageWhereUniqueInput
+      orderBy?: NexusGenInputs['PostImageOrderByInput'][] | null // [PostImageOrderByInput!]
+      skip?: number | null // Int
+      take?: number | null // Int
+      where?: NexusGenInputs['PostImageWhereInput'] | null // PostImageWhereInput
     }
     posts: {
       // args
