@@ -55,6 +55,9 @@ model File {
 
   createdById String? @db.VarChar(32)
   CreatedBy   User?   @relation(fields: [createdById], references: [id])
+
+  postId      String? @db.VarChar(32)
+  Post        Post?   @relation(fields: [postId], references: [id])
 }
 
 model Letter {
@@ -125,6 +128,7 @@ model Post {
   createdById String    @db.VarChar(32)
   CreatedBy   User      @relation(fields: [createdById], references: [id])
   Likes       Like[]
+  Files       File[]
 
   @@index([createdById], name: "User")
 }

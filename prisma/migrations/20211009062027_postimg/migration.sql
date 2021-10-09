@@ -1,0 +1,5 @@
+-- AlterTable
+ALTER TABLE `File` ADD COLUMN `postId` VARCHAR(32);
+
+-- AddForeignKey
+ALTER TABLE `File` ADD FOREIGN KEY (`postId`) REFERENCES `Post`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;

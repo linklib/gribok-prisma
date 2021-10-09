@@ -117,6 +117,7 @@ input FileOrderByInput {
   mimetype: SortOrder
   name: SortOrder
   path: SortOrder
+  postId: SortOrder
   rank: SortOrder
   size: SortOrder
   updatedAt: SortOrder
@@ -127,6 +128,7 @@ input FileWhereInput {
   CreatedBy: UserWhereInput
   NOT: [FileWhereInput!]
   OR: [FileWhereInput!]
+  Post: PostWhereInput
   createdAt: DateTimeFilter
   createdById: StringNullableFilter
   encoding: StringFilter
@@ -135,6 +137,7 @@ input FileWhereInput {
   mimetype: StringFilter
   name: StringNullableFilter
   path: StringFilter
+  postId: StringNullableFilter
   rank: IntFilter
   size: FloatFilter
   updatedAt: DateTimeFilter
@@ -410,6 +413,7 @@ type Post {
   """
   createdAt: DateTime!
   createdById: ID!
+  files: [File!]
   id: String!
   likes: [Like!]
   mashroomId: String
@@ -451,6 +455,7 @@ input PostUpdateInput {
 input PostWhereInput {
   AND: [PostWhereInput!]
   CreatedBy: UserWhereInput
+  Files: FileListRelationFilter
   Likes: LikeListRelationFilter
   Mashroom: MashroomWhereInput
   NOT: [PostWhereInput!]

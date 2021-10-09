@@ -36,8 +36,8 @@ interface NexusPrismaInputs {
       ordering: 'id' | 'createdAt' | 'expiredAt' | 'userId'
     }
     files: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'createdAt' | 'updatedAt' | 'path' | 'filename' | 'name' | 'mimetype' | 'encoding' | 'size' | 'rank' | 'createdById' | 'CreatedBy'
-      ordering: 'id' | 'createdAt' | 'updatedAt' | 'path' | 'filename' | 'name' | 'mimetype' | 'encoding' | 'size' | 'rank' | 'createdById'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'createdAt' | 'updatedAt' | 'path' | 'filename' | 'name' | 'mimetype' | 'encoding' | 'size' | 'rank' | 'createdById' | 'CreatedBy' | 'postId' | 'Post'
+      ordering: 'id' | 'createdAt' | 'updatedAt' | 'path' | 'filename' | 'name' | 'mimetype' | 'encoding' | 'size' | 'rank' | 'createdById' | 'postId'
     }
     letters: {
       filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'createdAt' | 'updatedAt' | 'email' | 'subject' | 'message' | 'status' | 'errorMessage' | 'rank' | 'deleteOnSend' | 'replyTo' | 'returnTo' | 'createdById' | 'CreatedBy'
@@ -52,7 +52,7 @@ interface NexusPrismaInputs {
       ordering: 'id' | 'createdAt' | 'updatedAt' | 'code' | 'password' | 'validTill' | 'User'
     }
     posts: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'createdAt' | 'updatedAt' | 'Mashroom' | 'mashroomId' | 'title' | 'text' | 'createdById' | 'CreatedBy' | 'Likes'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'createdAt' | 'updatedAt' | 'Mashroom' | 'mashroomId' | 'title' | 'text' | 'createdById' | 'CreatedBy' | 'Likes' | 'Files'
       ordering: 'id' | 'createdAt' | 'updatedAt' | 'mashroomId' | 'title' | 'text' | 'createdById'
     }
     mashrooms: {
@@ -70,8 +70,8 @@ interface NexusPrismaInputs {
       ordering: 'id' | 'createdAt' | 'expiredAt' | 'userId'
     }
     Files: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'createdAt' | 'updatedAt' | 'path' | 'filename' | 'name' | 'mimetype' | 'encoding' | 'size' | 'rank' | 'createdById' | 'CreatedBy'
-      ordering: 'id' | 'createdAt' | 'updatedAt' | 'path' | 'filename' | 'name' | 'mimetype' | 'encoding' | 'size' | 'rank' | 'createdById'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'createdAt' | 'updatedAt' | 'path' | 'filename' | 'name' | 'mimetype' | 'encoding' | 'size' | 'rank' | 'createdById' | 'CreatedBy' | 'postId' | 'Post'
+      ordering: 'id' | 'createdAt' | 'updatedAt' | 'path' | 'filename' | 'name' | 'mimetype' | 'encoding' | 'size' | 'rank' | 'createdById' | 'postId'
     }
     Letters: {
       filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'createdAt' | 'updatedAt' | 'email' | 'subject' | 'message' | 'status' | 'errorMessage' | 'rank' | 'deleteOnSend' | 'replyTo' | 'returnTo' | 'createdById' | 'CreatedBy'
@@ -82,7 +82,7 @@ interface NexusPrismaInputs {
       ordering: 'id' | 'createdAt' | 'updatedAt' | 'code' | 'password' | 'validTill' | 'User'
     }
     Posts: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'createdAt' | 'updatedAt' | 'Mashroom' | 'mashroomId' | 'title' | 'text' | 'createdById' | 'CreatedBy' | 'Likes'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'createdAt' | 'updatedAt' | 'Mashroom' | 'mashroomId' | 'title' | 'text' | 'createdById' | 'CreatedBy' | 'Likes' | 'Files'
       ordering: 'id' | 'createdAt' | 'updatedAt' | 'mashroomId' | 'title' | 'text' | 'createdById'
     }
     Likes: {
@@ -110,10 +110,14 @@ interface NexusPrismaInputs {
       filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'postId' | 'Post' | 'createdById' | 'CreatedBy'
       ordering: 'id' | 'postId' | 'createdById'
     }
+    Files: {
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'createdAt' | 'updatedAt' | 'path' | 'filename' | 'name' | 'mimetype' | 'encoding' | 'size' | 'rank' | 'createdById' | 'CreatedBy' | 'postId' | 'Post'
+      ordering: 'id' | 'createdAt' | 'updatedAt' | 'path' | 'filename' | 'name' | 'mimetype' | 'encoding' | 'size' | 'rank' | 'createdById' | 'postId'
+    }
   }
   Mashroom: {
     Posts: {
-      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'createdAt' | 'updatedAt' | 'Mashroom' | 'mashroomId' | 'title' | 'text' | 'createdById' | 'CreatedBy' | 'Likes'
+      filtering: 'AND' | 'OR' | 'NOT' | 'id' | 'createdAt' | 'updatedAt' | 'Mashroom' | 'mashroomId' | 'title' | 'text' | 'createdById' | 'CreatedBy' | 'Likes' | 'Files'
       ordering: 'id' | 'createdAt' | 'updatedAt' | 'mashroomId' | 'title' | 'text' | 'createdById'
     }
   }
@@ -240,6 +244,8 @@ interface NexusPrismaOutputs {
     rank: 'Int'
     createdById: 'String'
     CreatedBy: 'User'
+    postId: 'String'
+    Post: 'Post'
   }
   Letter: {
     id: 'String'
@@ -287,6 +293,7 @@ interface NexusPrismaOutputs {
     createdById: 'String'
     CreatedBy: 'User'
     Likes: 'Like'
+    Files: 'File'
   }
   Mashroom: {
     id: 'String'

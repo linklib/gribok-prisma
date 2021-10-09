@@ -111,6 +111,7 @@ export interface NexusGenInputs {
     mimetype?: NexusGenEnums['SortOrder'] | null // SortOrder
     name?: NexusGenEnums['SortOrder'] | null // SortOrder
     path?: NexusGenEnums['SortOrder'] | null // SortOrder
+    postId?: NexusGenEnums['SortOrder'] | null // SortOrder
     rank?: NexusGenEnums['SortOrder'] | null // SortOrder
     size?: NexusGenEnums['SortOrder'] | null // SortOrder
     updatedAt?: NexusGenEnums['SortOrder'] | null // SortOrder
@@ -121,6 +122,7 @@ export interface NexusGenInputs {
     CreatedBy?: NexusGenInputs['UserWhereInput'] | null // UserWhereInput
     NOT?: NexusGenInputs['FileWhereInput'][] | null // [FileWhereInput!]
     OR?: NexusGenInputs['FileWhereInput'][] | null // [FileWhereInput!]
+    Post?: NexusGenInputs['PostWhereInput'] | null // PostWhereInput
     createdAt?: NexusGenInputs['DateTimeFilter'] | null // DateTimeFilter
     createdById?: NexusGenInputs['StringNullableFilter'] | null // StringNullableFilter
     encoding?: NexusGenInputs['StringFilter'] | null // StringFilter
@@ -129,6 +131,7 @@ export interface NexusGenInputs {
     mimetype?: NexusGenInputs['StringFilter'] | null // StringFilter
     name?: NexusGenInputs['StringNullableFilter'] | null // StringNullableFilter
     path?: NexusGenInputs['StringFilter'] | null // StringFilter
+    postId?: NexusGenInputs['StringNullableFilter'] | null // StringNullableFilter
     rank?: NexusGenInputs['IntFilter'] | null // IntFilter
     size?: NexusGenInputs['FloatFilter'] | null // FloatFilter
     updatedAt?: NexusGenInputs['DateTimeFilter'] | null // DateTimeFilter
@@ -366,6 +369,7 @@ export interface NexusGenInputs {
     // input type
     AND?: NexusGenInputs['PostWhereInput'][] | null // [PostWhereInput!]
     CreatedBy?: NexusGenInputs['UserWhereInput'] | null // UserWhereInput
+    Files?: NexusGenInputs['FileListRelationFilter'] | null // FileListRelationFilter
     Likes?: NexusGenInputs['LikeListRelationFilter'] | null // LikeListRelationFilter
     Mashroom?: NexusGenInputs['MashroomWhereInput'] | null // MashroomWhereInput
     NOT?: NexusGenInputs['PostWhereInput'][] | null // [PostWhereInput!]
@@ -641,6 +645,7 @@ export interface NexusGenFieldTypes {
     CreatedBy: NexusGenRootTypes['User'] | null // User
     createdAt: NexusGenScalars['DateTime'] // DateTime!
     createdById: string // ID!
+    files: NexusGenRootTypes['File'][] | null // [File!]
     id: string // String!
     likes: NexusGenRootTypes['Like'][] | null // [Like!]
     mashroomId: string | null // String
@@ -753,6 +758,7 @@ export interface NexusGenFieldTypeNames {
     CreatedBy: 'User'
     createdAt: 'DateTime'
     createdById: 'ID'
+    files: 'File'
     id: 'String'
     likes: 'Like'
     mashroomId: 'String'

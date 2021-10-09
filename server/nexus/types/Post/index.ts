@@ -51,6 +51,13 @@ export const Post = objectType({
         return ctx.prisma.like.findMany()
       },
     })
+
+    t.list.nonNull.field('files', {
+      type: 'File',
+      resolve(_root, _args, ctx) {
+        return ctx.prisma.file.findMany()
+      },
+    })
   },
 })
 
