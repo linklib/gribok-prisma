@@ -23,8 +23,7 @@ export const Post = objectType({
     t.string('text')
     t.string('mashroomId')
 
-    /*
-    t.field('mashroomId', {
+    t.field('Mashroom', {
       type: 'Mashroom',
       resolve({ mashroomId }, _, ctx) {
         return mashroomId
@@ -34,7 +33,7 @@ export const Post = objectType({
           : null
       },
     })
-*/
+
     t.nonNull.id('createdById')
     t.field('CreatedBy', {
       type: 'User',
@@ -81,6 +80,7 @@ export const PostCreateInput = inputObjectType({
   definition(t) {
     t.nonNull.string('title')
     t.string('text')
+    t.string('mashroomId')
   },
 })
 
@@ -89,6 +89,7 @@ export const PostUpdateInput = inputObjectType({
   definition(t) {
     t.string('title')
     t.string('text')
+    t.string('mashroomId')
   },
 })
 

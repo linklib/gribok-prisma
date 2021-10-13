@@ -340,6 +340,7 @@ export interface NexusGenInputs {
   }
   PostCreateInput: {
     // input type
+    mashroomId?: string | null // String
     text?: string | null // String
     title: string // String!
   }
@@ -388,6 +389,7 @@ export interface NexusGenInputs {
   }
   PostUpdateInput: {
     // input type
+    mashroomId?: string | null // String
     text?: string | null // String
     title?: string | null // String
   }
@@ -670,6 +672,7 @@ export interface NexusGenFieldTypes {
   Post: {
     // field return type
     CreatedBy: NexusGenRootTypes['User'] | null // User
+    Mashroom: NexusGenRootTypes['Mashroom'] | null // Mashroom
     createdAt: NexusGenScalars['DateTime'] // DateTime!
     createdById: string // ID!
     id: string // String!
@@ -791,6 +794,7 @@ export interface NexusGenFieldTypeNames {
   Post: {
     // field return type name
     CreatedBy: 'User'
+    Mashroom: 'Mashroom'
     createdAt: 'DateTime'
     createdById: 'ID'
     id: 'String'

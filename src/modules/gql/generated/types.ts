@@ -413,6 +413,7 @@ export interface NestedStringNullableFilter {
 export interface Post {
   __typename?: 'Post';
   CreatedBy?: Maybe<User>;
+  Mashroom?: Maybe<Mashroom>;
   /** Когда создан */
   createdAt: Scalars['DateTime'];
   createdById: Scalars['ID'];
@@ -427,6 +428,7 @@ export interface Post {
 }
 
 export interface PostCreateInput {
+  mashroomId?: Maybe<Scalars['String']>;
   text?: Maybe<Scalars['String']>;
   title: Scalars['String'];
 }
@@ -483,6 +485,7 @@ export interface PostOrderByInput {
 }
 
 export interface PostUpdateInput {
+  mashroomId?: Maybe<Scalars['String']>;
   text?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
 }

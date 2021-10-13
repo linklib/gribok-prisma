@@ -405,6 +405,7 @@ input NestedStringNullableFilter {
 """
 type Post {
   CreatedBy: User
+  Mashroom: Mashroom
 
   """
   Когда создан
@@ -425,6 +426,7 @@ type Post {
 }
 
 input PostCreateInput {
+  mashroomId: String
   text: String
   title: String!
 }
@@ -482,6 +484,7 @@ input PostOrderByInput {
 }
 
 input PostUpdateInput {
+  mashroomId: String
   text: String
   title: String
 }
