@@ -12,11 +12,16 @@ import {
 } from 'src/modules/gql/generated'
 import TextField from 'src/components/ui/form/TextField'
 import Button from 'src/components/ui/Button'
-import Select from 'react-select'
+import Select, { OptionTypeBase } from 'react-select'
 
 import { CreatePostFormStyled } from './styles'
 //import { Context } from 'src/pages/_App/Context'
 //import FormControl from '@prisma-cms/ui/dist/form/FormControl'
+
+interface Option extends OptionTypeBase {
+  value: string
+  label: string
+}
 
 /**
  * Форма добавления поста
@@ -40,7 +45,7 @@ const CreatePostForm: React.FC = () => {
     return schema
   }, [])
 
-  const { handleSubmit, control, formState, trigger } =
+  const { handleSubmit, control, formState, trigger, setValue } =
     useForm<PostCreateInput>({
       resolver: yupResolver(schema),
       shouldFocusError: true,
@@ -125,25 +130,86 @@ const CreatePostForm: React.FC = () => {
       )
     }, [])
 
-  const mashroomFieldRender: ControllerProps<
-    PostCreateInput,
-    'mashroomId'
-  >['render'] = useCallback(({ field, formState }) => {
-    const mashroomList = [
+  /**
+   * Выбор гриба
+   */
+  const onChangeMashroom = useCallback(
+    (option: Option | null) => {
+      /**
+       * Устанавливаем значение
+       */
+      setValue('mashroomId', option?.value || undefined, {
+        /**
+         * Эти параметры нужны, чтобы форма перевалидировалась
+         */
+        shouldDirty: true,
+        shouldTouch: true,
+        shouldValidate: true,
+      })
+    },
+    [setValue]
+  )
+
+  const mashroomList: Option[] = useMemo(() => {
+    return [
       { value: 'chocolate', label: 'Chocolate' },
       { value: 'strawberry', label: 'Strawberry' },
       { value: 'vanilla', label: 'Vanilla' },
     ]
-
-    return (
-      <Select
-        options={mashroomList}
-        {...field}
-        value={field.value || ''}
-        error={formState.errors[field.name]}
-      />
-    )
   }, [])
+
+  const mashroomFieldRender: ControllerProps<
+    PostCreateInput,
+    'mashroomId'
+  >['render'] = useCallback(
+    ({ field, formState }) => {
+      /**
+       * В селект в качестве значения передается не текстовое значение, а конкретный опшен,
+       * а в форму мы передаем именно текстовое значение.
+       * Поэтому мы здесь ищем конкретный опшен по значению
+       */
+      const option: Option | null =
+        (field.value && mashroomList.find((n) => n.value === field.value)) ||
+        null
+
+      return (
+        <div
+          style={{
+            width: '100%',
+            maxWidth: '40ch',
+          }}
+        >
+          <Select<Option>
+            options={mashroomList}
+            {...field}
+            value={option}
+            onChange={onChangeMashroom}
+            // styles={{
+            //   /**
+            //    * Задаем стили контейнеру
+            //    */
+            //   container: (base) => ({
+            //     ...base,
+            //     width: '100%',
+            //     maxWidth: '40ch',
+            //   }),
+            // }}
+          />
+
+          {formState.errors[field.name] ? (
+            <div
+              style={{
+                color: 'red',
+              }}
+            >
+              {formState.errors[field.name]?.message}
+            </div>
+          ) : null}
+        </div>
+      )
+    },
+    [mashroomList, onChangeMashroom]
+  )
 
   return useMemo(() => {
     return (
@@ -177,12 +243,12 @@ const CreatePostForm: React.FC = () => {
     )
   }, [
     control,
-    titleFieldRender,
+    createpostLoading,
     formState.isValid,
-    textFieldRender,
     mashroomFieldRender,
     onSubmit,
-    createpostLoading,
+    textFieldRender,
+    titleFieldRender,
   ])
 }
 
