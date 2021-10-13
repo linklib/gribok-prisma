@@ -12,6 +12,7 @@ import {
 } from 'src/modules/gql/generated'
 import TextField from 'src/components/ui/form/TextField'
 import Button from 'src/components/ui/Button'
+import Select from 'react-select'
 
 import { CreatePostFormStyled } from './styles'
 //import { Context } from 'src/pages/_App/Context'
@@ -32,6 +33,7 @@ const CreatePostForm: React.FC = () => {
       .object({
         title: yup.string().required(),
         text: yup.string(),
+        mashroomId: yup.string(),
       })
       .defined()
 
@@ -123,6 +125,26 @@ const CreatePostForm: React.FC = () => {
       )
     }, [])
 
+  const mashroomFieldRender: ControllerProps<
+    PostCreateInput,
+    'mashroomId'
+  >['render'] = useCallback(({ field, formState }) => {
+    const mashroomList = [
+      { value: 'chocolate', label: 'Chocolate' },
+      { value: 'strawberry', label: 'Strawberry' },
+      { value: 'vanilla', label: 'Vanilla' },
+    ]
+
+    return (
+      <Select
+        options={mashroomList}
+        {...field}
+        value={field.value || ''}
+        error={formState.errors[field.name]}
+      />
+    )
+  }, [])
+
   return useMemo(() => {
     return (
       <>
@@ -136,6 +158,12 @@ const CreatePostForm: React.FC = () => {
           />
 
           <Controller name="text" control={control} render={textFieldRender} />
+
+          <Controller
+            name="mashroomId"
+            control={control}
+            render={mashroomFieldRender}
+          />
 
           <Button
             type="submit"
@@ -152,6 +180,7 @@ const CreatePostForm: React.FC = () => {
     titleFieldRender,
     formState.isValid,
     textFieldRender,
+    mashroomFieldRender,
     onSubmit,
     createpostLoading,
   ])
