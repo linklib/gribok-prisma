@@ -18,6 +18,8 @@ import { CreatePostFormStyled } from './styles'
 //import { Context } from 'src/pages/_App/Context'
 //import FormControl from '@prisma-cms/ui/dist/form/FormControl'
 
+import { useMashroomsQuery } from 'src/modules/gql/generated'
+
 interface Option extends OptionTypeBase {
   value: string
   label: string
@@ -150,13 +152,20 @@ const CreatePostForm: React.FC = () => {
     [setValue]
   )
 
+  const mashrooms = useMashroomsQuery()
+
+  //console.log('mashrooms', mashrooms.data?.mashrooms)
+
   const mashroomList: Option[] = useMemo(() => {
-    return [
-      { value: 'chocolate', label: 'Chocolate' },
-      { value: 'strawberry', label: 'Strawberry' },
-      { value: 'vanilla', label: 'Vanilla' },
-    ]
-  }, [])
+    const res: Option[] = []
+
+    mashrooms.data?.mashrooms.map((mash) => {
+      return res.push({ value: mash.id, label: mash.name })
+    })
+    return res
+  }, [mashrooms.data?.mashrooms])
+
+  //console.log('mashroomsList', mashroomList)
 
   const mashroomFieldRender: ControllerProps<
     PostCreateInput,

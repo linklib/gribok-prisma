@@ -21,8 +21,8 @@ export const Post = objectType({
     })
     t.nonNull.string('title')
     t.string('text')
-    t.string('mashroomId')
 
+    t.string('mashroomId')
     t.field('Mashroom', {
       type: 'Mashroom',
       resolve({ mashroomId }, _, ctx) {

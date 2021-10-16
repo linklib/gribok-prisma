@@ -1,0 +1,6 @@
+query mashrooms {
+  mashrooms {
+    id
+    name
+  }
+}

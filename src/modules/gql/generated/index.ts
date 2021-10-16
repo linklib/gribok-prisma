@@ -5,6 +5,7 @@ export * from './UserUnique';
 export * from './createPost';
 export * from './createResetPasswordProcessor';
 export * from './file';
+export * from './mashrooms';
 export * from './me';
 export * from './meUser';
 export * from './post';
