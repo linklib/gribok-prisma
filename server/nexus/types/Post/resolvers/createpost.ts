@@ -1,3 +1,4 @@
+import { Prisma } from '.prisma/client'
 import { FieldResolver } from 'nexus'
 
 export const createpost: FieldResolver<'Mutation', 'createPost'> = async (
@@ -13,22 +14,27 @@ export const createpost: FieldResolver<'Mutation', 'createPost'> = async (
 
   const { title, text, mashroomId } = args.data
 
-  const post = await ctx.prisma.post.create({
-    data: {
-      title,
-      text,
-      //mashroomId,
-      Mashroom: {
-        connect: {
-          id: mashroomId ? mashroomId : undefined,
-        },
-      },
-      CreatedBy: {
-        connect: {
-          id: currentUser.id,
-        },
+  const createData: Prisma.PostCreateInput = {
+    title,
+    text,
+    //mashroomId,
+    CreatedBy: {
+      connect: {
+        id: currentUser.id,
       },
     },
+  }
+
+  if (mashroomId) {
+    createData.Mashroom = {
+      connect: {
+        id: mashroomId,
+      },
+    }
+  }
+
+  const post = await ctx.prisma.post.create({
+    data: createData,
   })
 
   return post
