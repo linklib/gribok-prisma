@@ -418,6 +418,7 @@ export interface Post {
   createdAt: Scalars['DateTime'];
   createdById: Scalars['ID'];
   id: Scalars['String'];
+  image?: Maybe<Scalars['String']>;
   likes?: Maybe<Array<Like>>;
   mashroomId?: Maybe<Scalars['String']>;
   postimages?: Maybe<Array<PostImage>>;
@@ -428,6 +429,7 @@ export interface Post {
 }
 
 export interface PostCreateInput {
+  image?: Maybe<Scalars['String']>;
   mashroomId?: Maybe<Scalars['String']>;
   text?: Maybe<Scalars['String']>;
   title: Scalars['String'];
@@ -478,6 +480,7 @@ export interface PostOrderByInput {
   createdAt?: Maybe<SortOrder>;
   createdById?: Maybe<SortOrder>;
   id?: Maybe<SortOrder>;
+  image?: Maybe<SortOrder>;
   mashroomId?: Maybe<SortOrder>;
   text?: Maybe<SortOrder>;
   title?: Maybe<SortOrder>;
@@ -485,6 +488,7 @@ export interface PostOrderByInput {
 }
 
 export interface PostUpdateInput {
+  image?: Maybe<Scalars['String']>;
   mashroomId?: Maybe<Scalars['String']>;
   text?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
@@ -501,6 +505,7 @@ export interface PostWhereInput {
   createdAt?: Maybe<DateTimeFilter>;
   createdById?: Maybe<StringFilter>;
   id?: Maybe<StringFilter>;
+  image?: Maybe<StringNullableFilter>;
   mashroomId?: Maybe<StringNullableFilter>;
   text?: Maybe<StringNullableFilter>;
   title?: Maybe<StringFilter>;

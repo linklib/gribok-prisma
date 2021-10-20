@@ -340,6 +340,7 @@ export interface NexusGenInputs {
   }
   PostCreateInput: {
     // input type
+    image?: string | null // String
     mashroomId?: string | null // String
     text?: string | null // String
     title: string // String!
@@ -382,6 +383,7 @@ export interface NexusGenInputs {
     createdAt?: NexusGenEnums['SortOrder'] | null // SortOrder
     createdById?: NexusGenEnums['SortOrder'] | null // SortOrder
     id?: NexusGenEnums['SortOrder'] | null // SortOrder
+    image?: NexusGenEnums['SortOrder'] | null // SortOrder
     mashroomId?: NexusGenEnums['SortOrder'] | null // SortOrder
     text?: NexusGenEnums['SortOrder'] | null // SortOrder
     title?: NexusGenEnums['SortOrder'] | null // SortOrder
@@ -389,6 +391,7 @@ export interface NexusGenInputs {
   }
   PostUpdateInput: {
     // input type
+    image?: string | null // String
     mashroomId?: string | null // String
     text?: string | null // String
     title?: string | null // String
@@ -405,6 +408,7 @@ export interface NexusGenInputs {
     createdAt?: NexusGenInputs['DateTimeFilter'] | null // DateTimeFilter
     createdById?: NexusGenInputs['StringFilter'] | null // StringFilter
     id?: NexusGenInputs['StringFilter'] | null // StringFilter
+    image?: NexusGenInputs['StringNullableFilter'] | null // StringNullableFilter
     mashroomId?: NexusGenInputs['StringNullableFilter'] | null // StringNullableFilter
     text?: NexusGenInputs['StringNullableFilter'] | null // StringNullableFilter
     title?: NexusGenInputs['StringFilter'] | null // StringFilter
@@ -676,6 +680,7 @@ export interface NexusGenFieldTypes {
     createdAt: NexusGenScalars['DateTime'] // DateTime!
     createdById: string // ID!
     id: string // String!
+    image: string | null // String
     likes: NexusGenRootTypes['Like'][] | null // [Like!]
     mashroomId: string | null // String
     postimages: NexusGenRootTypes['PostImage'][] | null // [PostImage!]
@@ -798,6 +803,7 @@ export interface NexusGenFieldTypeNames {
     createdAt: 'DateTime'
     createdById: 'ID'
     id: 'String'
+    image: 'String'
     likes: 'Like'
     mashroomId: 'String'
     postimages: 'PostImage'

@@ -413,6 +413,7 @@ type Post {
   createdAt: DateTime!
   createdById: ID!
   id: String!
+  image: String
   likes: [Like!]
   mashroomId: String
   postimages: [PostImage!]
@@ -426,6 +427,7 @@ type Post {
 }
 
 input PostCreateInput {
+  image: String
   mashroomId: String
   text: String
   title: String!
@@ -477,6 +479,7 @@ input PostOrderByInput {
   createdAt: SortOrder
   createdById: SortOrder
   id: SortOrder
+  image: SortOrder
   mashroomId: SortOrder
   text: SortOrder
   title: SortOrder
@@ -484,6 +487,7 @@ input PostOrderByInput {
 }
 
 input PostUpdateInput {
+  image: String
   mashroomId: String
   text: String
   title: String
@@ -500,6 +504,7 @@ input PostWhereInput {
   createdAt: DateTimeFilter
   createdById: StringFilter
   id: StringFilter
+  image: StringNullableFilter
   mashroomId: StringNullableFilter
   text: StringNullableFilter
   title: StringFilter

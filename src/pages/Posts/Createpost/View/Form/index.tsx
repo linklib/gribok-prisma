@@ -20,6 +20,8 @@ import { CreatePostFormStyled } from './styles'
 
 import { useMashroomsQuery } from 'src/modules/gql/generated'
 
+import Uploader, { UploadResponse } from '@prisma-cms/uploader'
+
 interface Option extends OptionTypeBase {
   value: string
   label: string
@@ -41,6 +43,7 @@ const CreatePostForm: React.FC = () => {
         title: yup.string().required(),
         text: yup.string(),
         mashroomId: yup.string(),
+        image: yup.string(),
       })
       .defined()
 
@@ -125,6 +128,19 @@ const CreatePostForm: React.FC = () => {
         <TextField
           type="text"
           title="Текст"
+          {...field}
+          value={field.value || ''}
+          error={formState.errors[field.name]}
+        />
+      )
+    }, [])
+
+  const imageFieldRender: ControllerProps<PostCreateInput, 'image'>['render'] =
+    useCallback(({ field, formState }) => {
+      return (
+        <TextField
+          type="text"
+          title="Картинка"
           {...field}
           value={field.value || ''}
           error={formState.errors[field.name]}
@@ -220,25 +236,62 @@ const CreatePostForm: React.FC = () => {
     [mashroomList, onChangeMashroom]
   )
 
+  /**
+   * Идея в том, чтобы загрузить картинку на сервер с помощью @prisma-cms/uploarder, добавить строку в таблицу Field, а url загруженной картинки
+   * поле image формы. И поле сделать недоступное для редактирования пользователем.
+   */
+
+  // const Upload: React.FC<T> = () => {
+  const onUpload = useCallback(
+    (result: UploadResponse) => {
+      //console.log('result', result)
+
+      setValue('image', result.data.singleUpload?.path, {
+        /**
+         * Эти параметры нужны, чтобы форма перевалидировалась
+         */
+        shouldDirty: true,
+        shouldTouch: true,
+        shouldValidate: true,
+      })
+    },
+    [setValue]
+  )
+  /*
+    return (
+      <>
+        <Uploader name="post" onUpload={onUpload} directory="images/" />
+      </>
+    )*/
+  //}
+
   return useMemo(() => {
     return (
       <>
         <CreatePostFormStyled onSubmit={onSubmit}>
           <h2>Добавить пост</h2>
-
           <Controller
             name="title"
             control={control}
             render={titleFieldRender}
           />
-
           <Controller name="text" control={control} render={textFieldRender} />
-
           <Controller
             name="mashroomId"
             control={control}
             render={mashroomFieldRender}
           />
+
+          <Controller
+            name="image"
+            control={control}
+            render={imageFieldRender}
+          />
+
+          <Uploader name="post" onUpload={onUpload} directory="images/" />
+          {
+            //<Controller name="image" control={control} render={Upload} />
+          }
 
           <Button
             type="submit"
@@ -254,8 +307,10 @@ const CreatePostForm: React.FC = () => {
     control,
     createpostLoading,
     formState.isValid,
+    imageFieldRender,
     mashroomFieldRender,
     onSubmit,
+    onUpload,
     textFieldRender,
     titleFieldRender,
   ])

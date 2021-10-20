@@ -21,6 +21,7 @@ export const Post = objectType({
     })
     t.nonNull.string('title')
     t.string('text')
+    t.string('image')
 
     t.string('mashroomId')
     t.field('Mashroom', {
@@ -81,6 +82,7 @@ export const PostCreateInput = inputObjectType({
     t.nonNull.string('title')
     t.string('text')
     t.string('mashroomId')
+    t.string('image')
   },
 })
 
@@ -90,6 +92,7 @@ export const PostUpdateInput = inputObjectType({
     t.string('title')
     t.string('text')
     t.string('mashroomId')
+    t.string('image')
   },
 })
 

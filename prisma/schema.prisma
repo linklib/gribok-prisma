@@ -124,6 +124,7 @@ model Post {
   mashroomId  String?   @db.VarChar(32)
   title       String
   text        String?
+  image       String?
   createdById String    @db.VarChar(32)
   CreatedBy   User      @relation(fields: [createdById], references: [id])
   Likes       Like[]

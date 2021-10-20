@@ -40,13 +40,14 @@ export type MutationFieldPolicy = {
 	singleUpload?: FieldPolicy<any> | FieldReadFunction<any>,
 	updatePost?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type PostKeySpecifier = ('CreatedBy' | 'Mashroom' | 'createdAt' | 'createdById' | 'id' | 'likes' | 'mashroomId' | 'postimages' | 'text' | 'title' | 'updatedAt' | PostKeySpecifier)[];
+export type PostKeySpecifier = ('CreatedBy' | 'Mashroom' | 'createdAt' | 'createdById' | 'id' | 'image' | 'likes' | 'mashroomId' | 'postimages' | 'text' | 'title' | 'updatedAt' | PostKeySpecifier)[];
 export type PostFieldPolicy = {
 	CreatedBy?: FieldPolicy<any> | FieldReadFunction<any>,
 	Mashroom?: FieldPolicy<any> | FieldReadFunction<any>,
 	createdAt?: FieldPolicy<any> | FieldReadFunction<any>,
 	createdById?: FieldPolicy<any> | FieldReadFunction<any>,
 	id?: FieldPolicy<any> | FieldReadFunction<any>,
+	image?: FieldPolicy<any> | FieldReadFunction<any>,
 	likes?: FieldPolicy<any> | FieldReadFunction<any>,
 	mashroomId?: FieldPolicy<any> | FieldReadFunction<any>,
 	postimages?: FieldPolicy<any> | FieldReadFunction<any>,
