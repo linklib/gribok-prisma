@@ -1,5 +1,5 @@
 //import React, { useCallback, useContext, useEffect, useMemo } from 'react'
-import React, { useCallback, useEffect, useMemo } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/router'
 
 import { Controller, ControllerProps, useForm } from 'react-hook-form'
@@ -26,6 +26,9 @@ interface Option extends OptionTypeBase {
   value: string
   label: string
 }
+interface IPath {
+  path: string
+}
 
 /**
  * Форма добавления поста
@@ -33,6 +36,8 @@ interface Option extends OptionTypeBase {
 const CreatePostForm: React.FC = () => {
   //const context = useContext(Context)
   const router = useRouter()
+
+  const [imagepath, setimagepath] = useState<IPath>({ path: '' })
 
   /**
    * Описываем структуру формы в соответствии с типизацией
@@ -139,8 +144,8 @@ const CreatePostForm: React.FC = () => {
     useCallback(({ field, formState }) => {
       return (
         <TextField
-          type="text"
-          title="Картинка"
+          type="hidden"
+          title=""
           {...field}
           value={field.value || ''}
           error={formState.errors[field.name]}
@@ -246,6 +251,10 @@ const CreatePostForm: React.FC = () => {
     (result: UploadResponse) => {
       //console.log('result', result)
 
+      if (result.data.singleUpload?.path) {
+        setimagepath({ path: result.data.singleUpload?.path })
+      }
+
       setValue('image', result.data.singleUpload?.path, {
         /**
          * Эти параметры нужны, чтобы форма перевалидировалась
@@ -264,6 +273,16 @@ const CreatePostForm: React.FC = () => {
       </>
     )*/
   //}
+
+  //console.log('imgpath', imagepath)
+
+  function ImageP(props: { src: string }) {
+    if (props.src && props.src != '') {
+      return <img src={`/${props.src}`} />
+    } else {
+      return <></>
+    }
+  }
 
   return useMemo(() => {
     return (
@@ -289,9 +308,8 @@ const CreatePostForm: React.FC = () => {
           />
 
           <Uploader name="post" onUpload={onUpload} directory="images/" />
-          {
-            //<Controller name="image" control={control} render={Upload} />
-          }
+
+          <ImageP src={imagepath.path} />
 
           <Button
             type="submit"
@@ -308,6 +326,7 @@ const CreatePostForm: React.FC = () => {
     createpostLoading,
     formState.isValid,
     imageFieldRender,
+    imagepath,
     mashroomFieldRender,
     onSubmit,
     onUpload,
