@@ -140,6 +140,7 @@ const CreatePostForm: React.FC = () => {
       )
     }, [])
 
+  /*
   const imageFieldRender: ControllerProps<PostCreateInput, 'image'>['render'] =
     useCallback(({ field, formState }) => {
       return (
@@ -152,7 +153,7 @@ const CreatePostForm: React.FC = () => {
         />
       )
     }, [])
-
+*/
   /**
    * Выбор гриба
    */
@@ -300,12 +301,12 @@ const CreatePostForm: React.FC = () => {
             control={control}
             render={mashroomFieldRender}
           />
-
+          {/*
           <Controller
             name="image"
             control={control}
             render={imageFieldRender}
-          />
+          />*/}
 
           <Uploader name="post" onUpload={onUpload} directory="images/" />
 
@@ -325,7 +326,7 @@ const CreatePostForm: React.FC = () => {
     control,
     createpostLoading,
     formState.isValid,
-    imageFieldRender,
+    //imageFieldRender,
     imagepath,
     mashroomFieldRender,
     onSubmit,
